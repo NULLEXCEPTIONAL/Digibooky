@@ -33,11 +33,12 @@ pipeline {
                 sh 'mvn -Dmaven.test.failure.ignore=true test'
             }
         }
+    }
 
-        post {
-            always {
-                junit '**/target/surefire-reports/*.xml'
-            }
+    post {
+        always {
+            junit '**/target/surefire-reports/*.xml'
         }
     }
+
 }
