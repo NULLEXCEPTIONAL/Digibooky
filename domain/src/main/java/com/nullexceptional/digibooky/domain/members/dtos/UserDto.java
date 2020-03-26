@@ -26,7 +26,8 @@ public class UserDto {
         this.logged = logged;
         this.role = role;
     }
-    public static UserDto toUserDTO(User user){
-        return new UserDto(user.getId(),user.getInss(),user.getFirstName(),user.getLastName(),user.getEmail(),user.getAddress(),user.isLogged(),user.getRole());
+
+    public static UserDto toUserDTO(User user) {
+        return new UserDto(user.getId(), user.getInss(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getAddress(), user.isLogged(), user.getRole());
     }
 }

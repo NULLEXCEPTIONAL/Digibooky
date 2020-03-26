@@ -16,13 +16,4 @@
             <artifactId>domain</artifactId>
         </dependency>
     </dependencies>
-
-    <dependencies>
-        <dependency>
-            <groupId>com.nullexceptional</groupId>
-            <artifactId>domain</artifactId>
-        </dependency>
-    </dependencies>
-
-
 </project>
