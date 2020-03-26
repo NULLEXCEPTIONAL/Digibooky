@@ -1,4 +1,4 @@
-package com.nullexceptional.digibooky.domain;
+package com.nullexceptional.digibooky.domain.rental;
 
 import org.springframework.stereotype.Repository;
 
