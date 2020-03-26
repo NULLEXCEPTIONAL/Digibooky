@@ -1,6 +1,6 @@
 package com.nullexceptional.digibooky.domain.members;
 
-public class UserDto {
+public interface UserDto {
 
 
 }
