@@ -1,4 +1,4 @@
-package com.nullexceptional.digibooky.service;
+package com.nullexceptional.digibooky.service.rental;
 
 import com.nullexceptional.digibooky.domain.rental.RentalRepository;
 import com.nullexceptional.digibooky.domain.rental.dto.CreateRentalDto;
