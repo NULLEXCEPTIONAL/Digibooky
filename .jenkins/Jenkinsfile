@@ -11,24 +11,7 @@ pipeline {
                 sh 'mvn clean test-compile'
             }
         }
-        stage('api') {
-            steps {
-                sh 'mvn -Dmaven.test.failure.ignore=true test'
-            }
-        }
-        stage('domain') {
-            steps {
-                sh 'mvn -Dmaven.test.failure.ignore=true test'
-            }
-        }
-
-        stage('service') {
-            steps {
-                sh 'mvn -Dmaven.test.failure.ignore=true test'
-            }
-        }
-
-        stage('war') {
+        stage('Test') {
             steps {
                 sh 'mvn -Dmaven.test.failure.ignore=true test'
             }
