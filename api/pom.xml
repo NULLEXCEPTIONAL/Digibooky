@@ -10,6 +10,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>api</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>com.nullexceptional</groupId>
+            <artifactId>service</artifactId>
+        </dependency>
+    </dependencies>
 
 
 </project>
