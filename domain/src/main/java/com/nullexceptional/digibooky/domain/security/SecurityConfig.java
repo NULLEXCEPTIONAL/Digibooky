@@ -11,7 +11,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    /*private final AuthenticationEntryPoint authenticationEntryPoint;
+    private final AuthenticationEntryPoint authenticationEntryPoint;
 
     @Autowired
     public SecurityConfig(AuthenticationEntryPoint authenticationEntryPoint) {
@@ -23,6 +23,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable().authorizeRequests()
                 .anyRequest().authenticated()
                 .and().httpBasic()
-                .authenticationEntryPoint(authenticationEntryPoint;
-    }*/
+                .authenticationEntryPoint(authenticationEntryPoint);
+    }
 }
