@@ -14,11 +14,6 @@
     <dependencies>
         <dependency>
             <groupId>com.nullexceptional</groupId>
-            <artifactId>service</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.nullexceptional</groupId>
             <artifactId>domain</artifactId>
         </dependency>
     </dependencies>
