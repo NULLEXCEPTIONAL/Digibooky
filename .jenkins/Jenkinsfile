@@ -1,0 +1,44 @@
+pipeline {
+    agent any
+
+    tools {
+        jdk '13.0.2"'
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                sh 'mvn clean test-compile'
+            }
+        }
+        stage('api') {
+            steps {
+                sh 'mvn -Dmaven.test.failure.ignore=true test'
+            }
+        }
+        stage('domain') {
+            steps {
+                sh 'mvn -Dmaven.test.failure.ignore=true test'
+            }
+        }
+
+        stage('service') {
+            steps {
+                sh 'mvn -Dmaven.test.failure.ignore=true test'
+            }
+        }
+
+        stage('war') {
+            steps {
+                sh 'mvn -Dmaven.test.failure.ignore=true test'
+            }
+        }
+
+
+        post {
+            always {
+                junit '**/target/surefire-reports/*.xml'
+            }
+        }
+    }
+}
