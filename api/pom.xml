@@ -13,10 +13,6 @@
     <dependencies>
         <dependency>
             <groupId>com.nullexceptional</groupId>
-            <artifactId>domain</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.nullexceptional</groupId>
             <artifactId>service</artifactId>
         </dependency>
     </dependencies>
