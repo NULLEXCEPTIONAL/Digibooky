@@ -31,4 +31,11 @@ public class BookRepository {
     private boolean bookInRepository(Book book){
         return bookCatalog.containsKey(book.getId());
     }
+
+    //DUMMY METHOD! CREATED BY SVEN
+    //SO I CAN CONTINUE WRITING CODE IN RENTAL PART
+    //OVERWRITE THIS CODE WITH YOUR IMPLEMENTATION
+    public Book getBookById(UUID bookId){
+        return null;
+    }
 }

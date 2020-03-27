@@ -4,16 +4,16 @@ import java.util.UUID;
 
 public class CreateRentalDto {
 
-    private UUID userId;
-    private String isbn;
+    private final UUID memberId;
+    private final String isbn;
 
-    public CreateRentalDto(UUID userId, String isbn) {
-        this.userId = userId;
+    public CreateRentalDto(UUID memberId, String isbn) {
+        this.memberId = memberId;
         this.isbn = isbn;
     }
 
-    public UUID getUserId() {
-        return userId;
+    public UUID getMemberId() {
+        return memberId;
     }
 
     public String getIsbn() {

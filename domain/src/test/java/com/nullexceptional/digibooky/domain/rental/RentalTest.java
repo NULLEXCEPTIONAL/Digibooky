@@ -1,5 +1,7 @@
 package com.nullexceptional.digibooky.domain.rental;
 
+import com.nullexceptional.digibooky.domain.book.Book;
+import com.nullexceptional.digibooky.domain.members.User;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -17,7 +19,7 @@ class RentalTest {
         // When
         UUID actualId = rental.getId();
         // Then
-        assertThat(actualId).isNotEqualTo(null);
+        assertThat(actualId).isNotNull();
     }
 
     @Test
@@ -42,25 +44,35 @@ class RentalTest {
         assertThat(actualDueDate).isEqualTo(LocalDate.now().plusWeeks(3));
     }
 
-//    @Test
-//    void createRental_thenRentalHasABook() {
-//        // Given
-//        Book book = new Book();
-//        Rental rental = new Rental(book, null);
-//        // When
-//        Book actualBook = rental.getBook();
-//        // Then
-//        assertThat(actualBook).isEqualTo(book);
-//    }
-//
-//    @Test
-//    void createRental_thenRentalHasUser() {
-//        // Given
-//        User user = new User();
-//        Rental rental = new Rental(null, user);
-//        // When
-//        User actualUser = rental.getUser();
-//        // Then
-//        assertThat(actualUser).isEqualTo(user);
-//    }
+    @Test
+    void createRental_thenRentalHasABook() {
+        // Given
+        Book expectedBook = new Book(null, null, null, null);
+        Rental rental = new Rental(expectedBook, null);
+        // When
+        Book actualBook = rental.getBook();
+        // Then
+        assertThat(actualBook).isEqualTo(expectedBook);
+    }
+
+    @Test
+    void createRental_thenRentalHasUser() {
+        // Given
+        User expectedUser = new User(null, null, null, null);
+        Rental rental = new Rental(null, expectedUser);
+        // When
+        User actualUser = rental.getUser();
+        // Then
+        assertThat(actualUser).isEqualTo(expectedUser);
+    }
+
+    @Test
+    void createRental_thenEndDateIsNull() {
+        // Given
+        Rental rental = new Rental(null,null);
+        // When
+        LocalDate actualEndDate = rental.getEndDate();
+        // Then
+        assertThat(actualEndDate).isNull();
+    }
 }
