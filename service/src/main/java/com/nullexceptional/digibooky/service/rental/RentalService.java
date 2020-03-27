@@ -8,27 +8,30 @@ import com.nullexceptional.digibooky.domain.rental.Rental;
 import com.nullexceptional.digibooky.domain.rental.RentalRepository;
 import com.nullexceptional.digibooky.domain.rental.dto.CreateRentalDto;
 import com.nullexceptional.digibooky.domain.rental.dto.RentalDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 @Service
 public class RentalService {
 
-    private RentalRepository rentalRepository;
-    private BookRepository bookRepository;
-    private UserRepository userRepository;
+    private final RentalRepository rentalRepository;
+    private final BookRepository bookRepository;
+    private final UserRepository userRepository;
+    private final RentalMapper rentalMapper;
 
-    public RentalService(RentalRepository rentalRepository, BookRepository bookRepository, UserRepository userRepository) {
+    @Autowired
+    public RentalService(RentalRepository rentalRepository, BookRepository bookRepository, UserRepository userRepository, RentalMapper rentalMapper) {
         this.rentalRepository = rentalRepository;
         this.bookRepository = bookRepository;
         this.userRepository = userRepository;
+        this.rentalMapper = rentalMapper;
     }
 
     public RentalDto lendBook(CreateRentalDto createRentalDto) {
         Book book = bookRepository.getBookByISBN(createRentalDto.getIsbn());
+        //set Boolean isBorrowed in Book to true
         User member = userRepository.getUserById(createRentalDto.getMemberId());
-//        return rentalRepository.saveRental(new Rental(book,member));
-        return null;
+        return rentalMapper.toDto(rentalRepository.saveRental(new Rental(book, member)));
     }
-
 }

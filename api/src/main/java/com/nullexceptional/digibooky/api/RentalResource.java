@@ -3,6 +3,7 @@ package com.nullexceptional.digibooky.api;
 import com.nullexceptional.digibooky.domain.rental.dto.CreateRentalDto;
 import com.nullexceptional.digibooky.domain.rental.dto.RentalDto;
 import com.nullexceptional.digibooky.service.rental.RentalService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,7 @@ public class RentalResource {
 
     private RentalService rentalService;
 
+    @Autowired
     public RentalResource(RentalService rentalService) {
         this.rentalService = rentalService;
     }
