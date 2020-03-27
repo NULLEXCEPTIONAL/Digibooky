@@ -34,4 +34,32 @@ public class UserDto {
     public UUID getId() {
         return id;
     }
+
+    public String getInss() {
+        return inss;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public boolean isLogged() {
+        return logged;
+    }
+
+    public Role getRole() {
+        return role;
+    }
 }
