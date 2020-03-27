@@ -1,8 +1,8 @@
 package com.nullexceptional.digibooky.service.book;
 
 import com.nullexceptional.digibooky.domain.book.Book;
+import com.nullexceptional.digibooky.domain.book.BookDtoDetails;
 import com.nullexceptional.digibooky.domain.book.BookDtoGeneral;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,5 +19,9 @@ public class BookMapper {
        return bookList.stream()
                 .map(book -> fromBookToBookDtoGeneral(book))
                 .collect(Collectors.toList());
+    }
+
+    public Book fromBookDtoGeneralToBook(BookDtoDetails bookDtoDetails){
+        return new Book(bookDtoDetails.getIsbn(), bookDtoDetails.getTitle(), bookDtoDetails.getAuthor(), bookDtoDetails.getSummary());
     }
 }
