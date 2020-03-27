@@ -26,24 +26,25 @@ public class RentalResource {
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public RentalDto lendBook(CreateRentalDto createRentalDto){
+    public RentalDto lendBook(CreateRentalDto createRentalDto) {
         return rentalService.lendBook(createRentalDto);
     }
 
-    @PutMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public String returnBook(){
-        return null;
+    @PatchMapping(path = "/{rentalId}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public String returnBook(@PathVariable UUID rentalId) {
+        return rentalService.returnBook(rentalId);
     }
 
     @GetMapping(path = "/{userId}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public List<BookDtoGeneral> getLentBooksByMember(@PathVariable UUID userId){
+    public List<BookDtoGeneral> getLentBooksByMember(@PathVariable UUID userId) {
         return rentalService.getLentBooksByMember(userId);
     }
 
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public List<BookDtoGeneral> getAllBooksOverdue(){
+    public List<BookDtoGeneral> getAllBooksOverdue() {
         return rentalService.getAllBooksOverdue();
     }
 }

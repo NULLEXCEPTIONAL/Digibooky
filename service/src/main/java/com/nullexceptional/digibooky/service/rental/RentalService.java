@@ -13,6 +13,7 @@ import com.nullexceptional.digibooky.service.book.BookMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -62,5 +63,21 @@ public class RentalService {
 
     public List<BookDtoGeneral> getAllBooksOverdue() {
         return bookMapper.fromBookToBookDtoGeneral(rentalRepository.getAllBooksOverdue());
+    }
+
+    public String returnBook(UUID rentalId) {
+        rentalRepository.getRental(rentalId).getBook().setBorrowed(false);
+        return getReturnBookMessage(rentalRepository.updateEndDateRental(rentalId));
+    }
+
+    private String getReturnBookMessage(Rental rental) {
+        if(isBookReturnedPassedDueDate(rental)){
+            return "Book " + rental.getBook().getId() + " is returned to late, due date was " + rental.getReturnDate();
+        }
+        return "Book " + rental.getBook().getId() + " is returned on time";
+    }
+
+    private boolean isBookReturnedPassedDueDate(Rental rental) {
+        return rental.getReturnDate().isBefore(LocalDate.now());
     }
 }
