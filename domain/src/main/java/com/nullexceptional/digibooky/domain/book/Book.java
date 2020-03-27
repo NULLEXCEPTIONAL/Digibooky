@@ -42,6 +42,18 @@ public class Book {
         return id;
     }
 
+    public void setBorrowed(boolean borrowed) {
+        isBorrowed = borrowed;
+    }
+
+    public boolean isBorrowed() {
+        return isBorrowed;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

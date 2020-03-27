@@ -31,15 +31,22 @@ class BookRepositoryTest {
 
     @Nested
     class GetAllBooks{
-        @Test
-        void withNonEmptyRepository() {
-            Assertions.assertThat(bookRepository.getAllBooks()).containsExactlyInAnyOrder(book2,book1);
-        }
+
 
         @Test
         void withEmptyRepository() {
             Assertions.assertThat(emptyBookRepository.getAllBooks()).isEqualTo(Arrays.asList());
         }
     }
+
+    @Nested
+    class GetBookBy{
+        @Test
+        void isbn() {
+            Assertions.assertThat(bookRepository.getBookByISBN("123456")).isEqualTo(book1);
+            Assertions.assertThat(bookRepository.getBookByISBN("123456789")).isEqualTo(book2);
+        }
+    }
+
 
 }

@@ -58,7 +58,7 @@ class RentalTest {
     @Test
     void createRental_thenRentalHasUser() {
         // Given
-        User expectedUser = new User(null, null, null, null);
+        User expectedUser = new User(null, null, null, null,null);
         Rental rental = new Rental(null, expectedUser);
         // When
         User actualUser = rental.getUser();
