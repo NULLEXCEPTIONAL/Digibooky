@@ -37,9 +37,23 @@ public class RentalService {
 
     public RentalDto lendBook(CreateRentalDto createRentalDto) {
         Book book = bookRepository.getBookByISBN(createRentalDto.getIsbn());
-        //set Boolean isBorrowed in Book to true
+        validateBookIsNotBorrowed(book);
+        validateBookIsNotDeleted(book);
+        book.setBorrowed(true);
         User member = userRepository.getUserById(createRentalDto.getMemberId());
         return rentalMapper.toDto(rentalRepository.saveRental(new Rental(book, member)));
+    }
+
+    private void validateBookIsNotDeleted(Book book) {
+        if(book.isDeleted()){
+            throw new IllegalStateException("Book " + book.getId() + " is not available in the library");
+        }
+    }
+
+    private void validateBookIsNotBorrowed(Book book) {
+        if(book.isBorrowed()){
+            throw new IllegalStateException("Book " + book.getId() + " already borrowed");
+        }
     }
 
     public List<BookDtoGeneral> getLentBooksByMember(UUID userId) {
