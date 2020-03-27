@@ -38,6 +38,10 @@ public class Book {
         return author;
     }
 
+    public String getSummary() {
+        return summary;
+    }
+
     public UUID getId() {
         return id;
     }

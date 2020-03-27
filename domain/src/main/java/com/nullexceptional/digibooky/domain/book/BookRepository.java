@@ -32,11 +32,13 @@ public class BookRepository {
         return bookCatalog.containsKey(book.getId());
     }
 
-
     public Book getBookByISBN(String isbn){
+        //TODO exception handling for unknown ISBN
         return bookCatalog.values().stream()
                 .filter(book -> book.getIsbn().equals(isbn))
                 .findAny()
                 .orElse(null);
     }
+
+
 }

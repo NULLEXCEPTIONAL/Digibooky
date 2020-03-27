@@ -24,10 +24,17 @@ public class BookResource {
         return bookService.getAllBooks();
     }
 
+    @GetMapping(produces = "application/json", path = "isbn/{isbn}")
+    public BookDtoDetails getBookByISBN(@PathVariable ("isbn") String isbn){
+        return bookService.getBookByISBN(isbn);
+    }
+
     @PostMapping(consumes="application/json")
     public void registerNewBook(@RequestBody BookDtoDetails bookToRegister){
         bookService.registerNewBook(bookToRegister);
     }
+
+
 
 
 }

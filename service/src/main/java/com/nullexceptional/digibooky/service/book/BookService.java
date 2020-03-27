@@ -26,4 +26,8 @@ public class BookService {
     public void registerNewBook (BookDtoDetails bookToUpdate){
         bookRepository.registerNewBook(bookmapper.fromBookDtoGeneralToBook(bookToUpdate));
     }
+
+    public BookDtoDetails getBookByISBN(String isbn) {
+        return bookmapper.fromBookToBookDtoDetails(bookRepository.getBookByISBN(isbn));
+    }
 }
