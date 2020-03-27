@@ -1,5 +1,43 @@
 package com.nullexceptional.digibooky.domain.rental.dto;
 
+import com.nullexceptional.digibooky.domain.book.Book;
+import com.nullexceptional.digibooky.domain.members.User;
+
+import java.time.LocalDate;
+
 public class RentalDto {
 
+    private final Book book;
+    private final User user;
+    private final LocalDate startDate;
+    private final LocalDate endDate;
+    private final LocalDate dueDate;
+
+    public RentalDto(Book book, User user, LocalDate startDate, LocalDate endDate, LocalDate dueDate) {
+        this.book = book;
+        this.user = user;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.dueDate = dueDate;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
 }
