@@ -26,7 +26,7 @@ public class BookRepository {
     //DUMMY METHOD! CREATED BY SVEN
     //SO I CAN CONTINUE WRITING CODE IN RENTAL PART
     //OVERWRITE THIS CODE WITH YOUR IMPLEMENTATION
-    public Book getBookById(UUID bookId){
+    public Book getBookByISBN(String ISBN){
         return null;
     }
 }
