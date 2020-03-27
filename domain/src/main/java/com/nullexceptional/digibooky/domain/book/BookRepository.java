@@ -32,10 +32,11 @@ public class BookRepository {
         return bookCatalog.containsKey(book.getId());
     }
 
-    //DUMMY METHOD! CREATED BY SVEN
-    //SO I CAN CONTINUE WRITING CODE IN RENTAL PART
-    //OVERWRITE THIS CODE WITH YOUR IMPLEMENTATION
-    public Book getBookById(UUID bookId){
-        return null;
+
+    public Book getBookByISBN(String isbn){
+        return bookCatalog.values().stream()
+                .filter(book -> book.getIsbn().equals(isbn))
+                .findAny()
+                .orElse(null);
     }
 }

@@ -17,8 +17,9 @@ public class UserRepository {
         this.db = new HashMap<>();
     }
 
-    public void saveUser(User user){
-        db.put(user.getId(),user);
+    public User saveUser(User user){
+       db.put(user.getId(),user);
+       return getUserById(user.getId());
     }
 
     public List<User> getAllUsers(){
@@ -27,8 +28,7 @@ public class UserRepository {
     }
 
     public User getUserById(UUID id){
-       User user1 = db.values().stream()
-                .filter(user -> user.getId().equals(id)).findFirst().orElse(null);
-       return user1;
+        return db.values().stream()
+                 .filter(user -> user.getId().equals(id)).findFirst().orElse(null);
     }
 }

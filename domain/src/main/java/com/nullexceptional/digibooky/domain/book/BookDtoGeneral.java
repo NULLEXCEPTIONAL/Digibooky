@@ -2,6 +2,8 @@ package com.nullexceptional.digibooky.domain.book;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
+import java.util.Objects;
+
 
 @JsonAutoDetect
 public class BookDtoGeneral {
@@ -27,5 +29,20 @@ public class BookDtoGeneral {
 
     public Author getAuthor() {
         return author;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BookDtoGeneral that = (BookDtoGeneral) o;
+        return Objects.equals(isbn, that.isbn) &&
+                Objects.equals(title, that.title) &&
+                Objects.equals(author, that.author);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(isbn, title, author);
     }
 }
