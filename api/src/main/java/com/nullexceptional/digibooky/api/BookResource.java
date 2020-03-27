@@ -4,7 +4,6 @@ import com.nullexceptional.digibooky.domain.book.BookDtoDetails;
 import com.nullexceptional.digibooky.domain.book.BookDtoGeneral;
 import com.nullexceptional.digibooky.service.book.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +26,11 @@ public class BookResource {
     @GetMapping(produces = "application/json", path = "isbn/{isbn}")
     public BookDtoDetails getBookByISBN(@PathVariable ("isbn") String isbn){
         return bookService.getBookByISBN(isbn);
+    }
+
+    @GetMapping(produces = "application/json", path = "title/{title}")
+    public BookDtoDetails getBookByTitle(@PathVariable ("title") String titleSearchString){
+        return bookService.getBookByISBN(titleSearchString);
     }
 
     @PostMapping(consumes="application/json")

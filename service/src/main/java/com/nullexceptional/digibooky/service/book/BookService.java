@@ -30,4 +30,8 @@ public class BookService {
     public BookDtoDetails getBookByISBN(String isbn) {
         return bookmapper.fromBookToBookDtoDetails(bookRepository.getBookByISBN(isbn));
     }
+
+    public BookDtoDetails getBookByTitle(String titleSearchString){
+        return bookmapper.fromBookToBookDtoDetails(bookRepository.getBookByTitle(titleSearchString));
+    }
 }

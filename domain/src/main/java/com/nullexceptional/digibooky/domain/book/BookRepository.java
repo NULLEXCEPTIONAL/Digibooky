@@ -40,5 +40,12 @@ public class BookRepository {
                 .orElse(null);
     }
 
+    public Book getBookByTitle (String titleSearchString) {
+        return bookCatalog.values().stream()
+                .filter(book -> book.getTitle().matches(titleSearchString))
+                .findAny()
+                .orElse(null);
+    }
+
 
 }
