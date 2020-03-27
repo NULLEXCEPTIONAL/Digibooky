@@ -7,29 +7,16 @@ import java.time.LocalDate;
 
 public class RentalDto {
 
-    private Book book;
-    private User user;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private final Book book;
+    private final User user;
+    private final LocalDate startDate;
+    private final LocalDate endDate;
 
-    public RentalDto setEndDate(LocalDate endDate){
-        this.endDate = endDate;
-        return this;
-    }
-
-    public RentalDto setStartDate(LocalDate startDate){
-        this.startDate = startDate;
-        return this;
-    }
-
-    public RentalDto setUser(User user){
-        this.user = user;
-        return this;
-    }
-
-    public RentalDto setBook(Book book){
+    public RentalDto(Book book, User user, LocalDate startDate, LocalDate endDate) {
         this.book = book;
-        return this;
+        this.user = user;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public Book getBook() {

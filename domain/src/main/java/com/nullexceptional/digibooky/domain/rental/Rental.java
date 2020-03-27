@@ -23,12 +23,12 @@ public class Rental {
         this.endDate = null;
     }
 
-    public UUID getId() {
-        return id;
-    }
-
     public LocalDate getReturnDate() {
         return startDate.plusWeeks(DEFAULT_RENTAL_PERIOD);
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     public Book getBook() {
@@ -37,6 +37,10 @@ public class Rental {
 
     public User getUser() {
         return user;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
     public LocalDate getEndDate() {
