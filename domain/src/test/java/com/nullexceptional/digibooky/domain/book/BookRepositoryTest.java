@@ -42,4 +42,14 @@ class BookRepositoryTest {
         }
     }
 
+    @Nested
+    class GetBookBy{
+        @Test
+        void isbn() {
+            Assertions.assertThat(bookRepository.getBookByISBN("123456")).isEqualTo(book1);
+            Assertions.assertThat(bookRepository.getBookByISBN("123456789")).isEqualTo(book2);
+        }
+    }
+
+
 }
