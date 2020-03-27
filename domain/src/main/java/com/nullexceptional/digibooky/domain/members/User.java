@@ -12,15 +12,15 @@ public class User {
     private boolean logged;
     private Role role;
 
-    public User(String inss, String firstName, String lastName, String email) {
+    public User(String inss, String firstName, String lastName, String email, Address address) {
+        this.id = UUID.randomUUID();
         this.inss = inss;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.address = address;
+        this.logged = false;
         this.role = Role.Member;
-        this.id=UUID.randomUUID();
-        this.logged=true;
-
     }
 
     public void setAddress(Address address) {
