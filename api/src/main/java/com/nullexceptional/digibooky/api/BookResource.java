@@ -1,11 +1,11 @@
 package com.nullexceptional.digibooky.api;
 
+import com.nullexceptional.digibooky.domain.book.BookDtoDetails;
 import com.nullexceptional.digibooky.domain.book.BookDtoGeneral;
 import com.nullexceptional.digibooky.service.book.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,6 +22,11 @@ public class BookResource {
     @GetMapping
     public List<BookDtoGeneral> getAllBooks(){
         return bookService.getAllBooks();
+    }
+
+    @PostMapping(consumes="application/json")
+    public void registerNewBook(@RequestBody BookDtoDetails bookToRegister){
+        bookService.registerNewBook(bookToRegister);
     }
 
 

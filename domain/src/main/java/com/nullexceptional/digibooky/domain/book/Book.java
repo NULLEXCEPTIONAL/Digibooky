@@ -3,6 +3,7 @@ package com.nullexceptional.digibooky.domain.book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
 import java.util.UUID;
 
 
@@ -35,5 +36,28 @@ public class Book {
 
     public Author getAuthor() {
         return author;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return isBorrowed == book.isBorrowed &&
+                isDeleted == book.isDeleted &&
+                Objects.equals(id, book.id) &&
+                Objects.equals(isbn, book.isbn) &&
+                Objects.equals(title, book.title) &&
+                Objects.equals(author, book.author) &&
+                Objects.equals(summary, book.summary);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, isbn, title, author, summary, isBorrowed, isDeleted);
     }
 }

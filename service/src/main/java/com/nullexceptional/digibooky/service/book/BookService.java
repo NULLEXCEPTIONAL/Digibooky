@@ -1,5 +1,6 @@
 package com.nullexceptional.digibooky.service.book;
 
+import com.nullexceptional.digibooky.domain.book.BookDtoDetails;
 import com.nullexceptional.digibooky.domain.book.BookDtoGeneral;
 import com.nullexceptional.digibooky.domain.book.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +21,9 @@ public class BookService {
 
     public List<BookDtoGeneral> getAllBooks(){
         return bookmapper.fromBookToBookDtoGeneral(bookRepository.getAllBooks());
+    }
+
+    public void registerNewBook (BookDtoDetails bookToUpdate){
+        bookRepository.registerNewBook(bookmapper.fromBookDtoGeneralToBook(bookToUpdate));
     }
 }

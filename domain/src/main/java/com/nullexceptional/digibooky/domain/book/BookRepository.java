@@ -22,4 +22,13 @@ public class BookRepository {
     public Map<UUID, Book> getBookCatalog() {
         return bookCatalog;
     }
+
+    public void registerNewBook(Book book) {
+        //TODO Throw an exception if something goes wrong (Exception-handling?)
+        if (!bookInRepository(book)) bookCatalog.put(book.getId(), book);
+    }
+
+    private boolean bookInRepository(Book book){
+        return bookCatalog.containsKey(book.getId());
+    }
 }
