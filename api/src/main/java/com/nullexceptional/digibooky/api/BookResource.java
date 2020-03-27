@@ -28,8 +28,13 @@ public class BookResource {
         return bookService.getBookByISBN(isbn);
     }
 
+    @PostMapping(consumes = "application/json", produces = "application/json", path = "isbn/search")
+    public List<BookDtoDetails> searchBookByISBN(@RequestBody String isbn){
+        return bookService.searchBookByISBN(isbn);
+    }
+
     @GetMapping(produces = "application/json", path = "title/{title}")
-    public BookDtoDetails getBookByTitle(@PathVariable ("title") String titleSearchString){
+    public List<BookDtoDetails> getBookByTitle(@PathVariable ("title") String titleSearchString){
         return bookService.getBookByTitle(titleSearchString);
     }
 

@@ -1,6 +1,8 @@
 package com.nullexceptional.digibooky.domain.book;
 
 import org.springframework.stereotype.Repository;
+
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -40,12 +42,25 @@ public class BookRepository {
                 .orElse(null);
     }
 
-    public Book getBookByTitle (String titleSearchString) {
+    public List<Book> searchBookByISBN(String isbn) {
+        String newISBN = convertWildCardSymbols(isbn);
         return bookCatalog.values().stream()
-                .filter(book -> book.getTitle().matches(".*"+titleSearchString+".*"))
-                .findAny()
-                .orElse(null);
+                .filter(book -> book.getIsbn().matches(newISBN))
+                .collect(Collectors.toList());
+
     }
 
+    public List<Book> getBookByTitle (String titleSearchString) {
+        String newText = convertWildCardSymbols(titleSearchString);
+        return bookCatalog.values().stream()
+                .filter(book -> book.getTitle().matches("(?i:.*" + newText + ".*)"))
+                .collect(Collectors.toList());
+    }
+
+    String convertWildCardSymbols(String text){
+        return text
+                .replace("*", ".*")
+                .replace("?", ".?");
+    }
 
 }
