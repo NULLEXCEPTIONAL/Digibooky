@@ -23,12 +23,13 @@ public class RentalRepository {
         return rentalsRepo;
     }
 
-    public Rental saveRental(Rental rental){
+    public Rental saveRental(Rental rental) {
         return rentalsRepo.put(rental.getId(), rental);
     }
 
-    public void updateEndDateRental(UUID rentalId) {
+    public Rental updateEndDateRental(UUID rentalId) {
         rentalsRepo.get(rentalId).setEndDate(LocalDate.now());
+        return rentalsRepo.get(rentalId);
     }
 
     public List<Book> getLentBooksByMember(UUID userId) {
@@ -43,5 +44,9 @@ public class RentalRepository {
                 .filter(rental -> rental.getReturnDate().isBefore(LocalDate.now()))
                 .map(Rental::getBook)
                 .collect(Collectors.toList());
+    }
+
+    public Rental getRental(UUID id){
+        return rentalsRepo.get(id);
     }
 }
