@@ -1,11 +1,15 @@
 package com.nullexceptional.digibooky.api;
 
+import com.nullexceptional.digibooky.domain.book.BookDtoGeneral;
 import com.nullexceptional.digibooky.domain.rental.dto.CreateRentalDto;
 import com.nullexceptional.digibooky.domain.rental.dto.RentalDto;
 import com.nullexceptional.digibooky.service.rental.RentalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -31,5 +35,15 @@ public class RentalResource {
         return null;
     }
 
+    @GetMapping(path = "/{userId}", produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public List<BookDtoGeneral> getLentBooksByMember(@PathVariable UUID userId){
+        return rentalService.getLentBooksByMember(userId);
+    }
 
+    @GetMapping(produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public List<BookDtoGeneral> getAllBooksOverdue(){
+        return rentalService.getAllBooksOverdue();
+    }
 }
