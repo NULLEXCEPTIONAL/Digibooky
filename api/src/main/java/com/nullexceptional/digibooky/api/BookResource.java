@@ -30,7 +30,7 @@ public class BookResource {
 
     @GetMapping(produces = "application/json", path = "title/{title}")
     public BookDtoDetails getBookByTitle(@PathVariable ("title") String titleSearchString){
-        return bookService.getBookByISBN(titleSearchString);
+        return bookService.getBookByTitle(titleSearchString);
     }
 
     @PostMapping(consumes="application/json")
