@@ -12,4 +12,20 @@ public class BookDtoDetails {
         this.author = author;
         this.summary = summary;
     }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
 }

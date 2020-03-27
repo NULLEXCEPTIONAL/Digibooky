@@ -1,24 +1,26 @@
 package com.nullexceptional.digibooky.domain.rental;
 
-import org.apache.catalina.User;
+import com.nullexceptional.digibooky.domain.book.Book;
+import com.nullexceptional.digibooky.domain.members.User;
 
-import java.awt.print.Book;
 import java.time.LocalDate;
 import java.util.UUID;
 
 public class Rental {
 
-    public static final int WEEKS_TO_ADD = 3;
+    public static final int DEFAULT_RENTAL_PERIOD = 3;
     private final UUID id;
     private final Book book;
     private final User user;
-    private final LocalDate rentalDay;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
     public Rental(Book book, User user) {
         this.id = UUID.randomUUID();
         this.book = book;
         this.user = user;
-        this.rentalDay = LocalDate.now();
+        this.startDate = LocalDate.now();
+        this.endDate = null;
     }
 
     public UUID getId() {
@@ -26,7 +28,7 @@ public class Rental {
     }
 
     public LocalDate getReturnDate() {
-        return rentalDay.plusWeeks(WEEKS_TO_ADD);
+        return startDate.plusWeeks(DEFAULT_RENTAL_PERIOD);
     }
 
     public Book getBook() {
@@ -34,6 +36,20 @@ public class Rental {
     }
 
     public User getUser() {
-        return null;
+        return user;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate returnDate) {
+        this.endDate = returnDate;
+    }
+
+    //created to test getAllBooksOverdue in RentalRepository
+    //if someone knows how to do this without creating a setter please tell ;)
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 }
