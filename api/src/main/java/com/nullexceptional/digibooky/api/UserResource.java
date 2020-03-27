@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping(path = "/users")
 public class UserResource {
@@ -26,10 +28,10 @@ public class UserResource {
         return UserDto.toUserDTO(user);
     }
 
-    @GetMapping(produces = "application/json")
+    @GetMapping(produces = "application/json", path = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public UserDto getUserById(@RequestBody UserDto userDto){
-       return userService.getUserById(userDto.getId());
+    public UserDto getUserById(@RequestBody UUID id){
+       return userService.getUserById(id);
     }
 
 
