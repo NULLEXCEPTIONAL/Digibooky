@@ -31,10 +31,7 @@ class BookRepositoryTest {
 
     @Nested
     class GetAllBooks{
-//        @Test
-//        void withNonEmptyRepository() {
-//            Assertions.assertThat(bookRepository.getAllBooks()).containsExactlyInAnyOrder(book2,book1);
-//        }
+
 
         @Test
         void withEmptyRepository() {
