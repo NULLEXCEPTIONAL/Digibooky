@@ -1,4 +1,4 @@
-package com.nullexceptional.digibooky.domain.members.dtos;
+package com.nullexceptional.digibooky.domain.members.dto;
 
 import com.nullexceptional.digibooky.domain.members.Address;
 

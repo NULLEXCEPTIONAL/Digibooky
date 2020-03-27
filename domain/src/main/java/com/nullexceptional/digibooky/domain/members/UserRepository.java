@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Repository
 public class UserRepository {
@@ -23,5 +24,11 @@ public class UserRepository {
     public List<User> getAllUsers(){
         return db.values().stream()
                 .collect(Collectors.toList());
+    }
+
+    public User getUserById(UUID id){
+       User user1 = db.values().stream()
+                .filter(user -> user.getId().equals(id)).findFirst().orElse(null);
+       return user1;
     }
 }
