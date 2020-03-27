@@ -43,12 +43,12 @@ class RentalRepositoryTest {
     @Test
     void getLentBooksByMember_givenAUserId_thenReturnListOfLentBooksByMember() {
         // Given
-        User user = new User(null,null,null,null);
+        User user = new User(null,null,null,null,null);
         Book book1 = new Book(null,null,null,null);
         Book book2 = new Book(null,null,null,null);
         Book book3 = new Book(null,null,null,null);
         rentalRepository.saveRental(new Rental(book1,user));
-        rentalRepository.saveRental(new Rental(book2,new User(null,null,null,null)));
+        rentalRepository.saveRental(new Rental(book2,new User(null,null,null,null,null)));
         rentalRepository.saveRental(new Rental(book3,user));
         // When
         List<Book> lentBooksByMember = rentalRepository.getLentBooksByMember(user.getId());

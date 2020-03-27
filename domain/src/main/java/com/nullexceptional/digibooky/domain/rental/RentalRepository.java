@@ -34,14 +34,14 @@ public class RentalRepository {
     public List<Book> getLentBooksByMember(UUID userId) {
         return rentalsRepo.values().stream()
                 .filter(rental -> rental.getUser().getId().equals(userId))
-                .map(rental -> rental.getBook())
+                .map(Rental::getBook)
                 .collect(Collectors.toList());
     }
 
     public List<Book> getAllBooksOverdue() {
         return rentalsRepo.values().stream()
                 .filter(rental -> rental.getReturnDate().isBefore(LocalDate.now()))
-                .map(rental -> rental.getBook())
+                .map(Rental::getBook)
                 .collect(Collectors.toList());
     }
 }
