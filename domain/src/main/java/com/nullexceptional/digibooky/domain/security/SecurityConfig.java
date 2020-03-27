@@ -32,14 +32,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().httpBasic()
                 .authenticationEntryPoint(authenticationEntryPoint);
     }
-    //configurer les niveaux d'access aux controllers
-    /*private void configureAntMatchers(HttpSecurity http) throws Exception {
+
+    private void configureAntMatchers(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
-                .antMatchers("/users").hasRole(Role.Member.toString())
-               .antMatchers("/army/promote/**").hasRole("HUMAN_RELATIONSHIPS")
+                .antMatchers("/users").anonymous()
                 .and().httpBasic()
                 .authenticationEntryPoint(authenticationEntryPoint);
-    }*/
+    }
 
 
     @Autowired
