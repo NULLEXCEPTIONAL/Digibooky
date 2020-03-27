@@ -60,7 +60,7 @@ public class BookRepository {
     public List<Book> searchBookByAuthor(String authorFullName){
         String newName = convertWildCardSymbols(authorFullName);
         return bookCatalog.values().stream()
-                .filter(book -> book.getAuthorFirstAndLastName().matches("(?i:.*" + authorFullName + ".*)"))
+                .filter(book -> book.getAuthorFirstAndLastName().matches("(?i:.*" + newName + ".*)"))
                 .collect(Collectors.toList());
     }
 
