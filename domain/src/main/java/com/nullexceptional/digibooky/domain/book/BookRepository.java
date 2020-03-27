@@ -20,4 +20,11 @@ public class BookRepository {
     public Map<UUID, Book> getBookCatalog() {
         return bookCatalog;
     }
+
+    //DUMMY METHOD! CREATED BY SVEN
+    //SO I CAN CONTINUE WRITING CODE IN RENTAL PART
+    //OVERWRITE THIS CODE WITH YOUR IMPLEMENTATION
+    public Book getBookById(UUID bookId){
+        return null;
+    }
 }
