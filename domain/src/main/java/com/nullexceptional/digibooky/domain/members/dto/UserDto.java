@@ -1,4 +1,4 @@
-package com.nullexceptional.digibooky.domain.members.dtos;
+package com.nullexceptional.digibooky.domain.members.dto;
 
 import com.nullexceptional.digibooky.domain.members.Address;
 import com.nullexceptional.digibooky.domain.members.Role;
@@ -29,5 +29,9 @@ public class UserDto {
 
     public static UserDto toUserDTO(User user) {
         return new UserDto(user.getId(), user.getInss(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getAddress(), user.isLogged(), user.getRole());
+    }
+
+    public UUID getId() {
+        return id;
     }
 }
