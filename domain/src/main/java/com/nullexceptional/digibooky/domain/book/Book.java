@@ -58,6 +58,10 @@ public class Book {
         return isDeleted;
     }
 
+    public String getAuthorFirstAndLastName(){
+        return author.getFirstName() + " " + author.getLastName();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

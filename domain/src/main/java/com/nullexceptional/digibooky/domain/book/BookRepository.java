@@ -50,10 +50,17 @@ public class BookRepository {
 
     }
 
-    public List<Book> getBookByTitle (String titleSearchString) {
+    public List<Book> searchBookByTitle(String titleSearchString) {
         String newText = convertWildCardSymbols(titleSearchString);
         return bookCatalog.values().stream()
                 .filter(book -> book.getTitle().matches("(?i:.*" + newText + ".*)"))
+                .collect(Collectors.toList());
+    }
+
+    public List<Book> searchBookByAuthor(String authorFullName){
+        String newName = convertWildCardSymbols(authorFullName);
+        return bookCatalog.values().stream()
+                .filter(book -> book.getAuthorFirstAndLastName().matches("(?i:.*" + authorFullName + ".*)"))
                 .collect(Collectors.toList());
     }
 
