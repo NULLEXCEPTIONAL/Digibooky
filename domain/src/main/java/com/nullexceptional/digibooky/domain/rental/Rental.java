@@ -56,4 +56,5 @@ public class Rental {
     public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
+
 }

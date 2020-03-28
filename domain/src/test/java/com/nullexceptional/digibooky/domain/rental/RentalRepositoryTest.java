@@ -59,16 +59,21 @@ class RentalRepositoryTest {
     @Test
     void getAllBooksOverdue_thenReturnListOfBooksWhichAreOverdue() {
         // Given
-        Book overdueBook = new Book(null,null,null,null);
-        Book book = new Book(null,null,null,null);
-        Rental rental1 = new Rental(overdueBook,null);
+        Book bookOverdue = new Book(null,null,null,null);
+        Book bookOverdueButAlreadyReturned = new Book(null,null,null,null);
+        Book bookNotOverdue = new Book(null,null,null,null);
+        Rental rental1 = new Rental(bookOverdue,null);
         rental1.setStartDate(LocalDate.now().minusMonths(1));
-        Rental rental2 = new Rental(book,null);
+        Rental rental2 = new Rental(bookNotOverdue,null);
+        Rental rental3 = new Rental(bookOverdueButAlreadyReturned, null);
+        rental3.setStartDate(LocalDate.now().minusMonths(1));
+        rental3.setEndDate(LocalDate.now());
         rentalRepository.saveRental(rental1);
         rentalRepository.saveRental(rental2);
+        rentalRepository.saveRental(rental3);
         // When
         List<Book> overdueBooks = rentalRepository.getAllBooksOverdue();
         // Then
-        assertThat(overdueBooks).containsExactly(overdueBook);
+        assertThat(overdueBooks).containsExactly(bookOverdue);
     }
 }

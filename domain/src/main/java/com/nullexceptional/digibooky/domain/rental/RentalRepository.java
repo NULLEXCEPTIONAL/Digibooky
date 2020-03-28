@@ -45,6 +45,7 @@ public class RentalRepository {
     public List<Book> getAllBooksOverdue() {
         return rentalsRepo.values().stream()
                 .filter(rental -> rental.getReturnDate().isBefore(LocalDate.now()))
+                .filter(rental -> rental.getEndDate() == null)
                 .map(Rental::getBook)
                 .collect(Collectors.toList());
     }
