@@ -64,6 +64,7 @@ class BookRepositoryTest {
         void isbn_WithWildcard(){
             Assertions.assertThat(bookRepository.searchBookByISBN("123?*")).containsExactlyInAnyOrder(book1,book2);
             Assertions.assertThat(bookRepository.searchBookByISBN("*345*")).containsExactlyInAnyOrder(book1,book2);
+            Assertions.assertThat(bookRepository.searchBookByISBN("*?45*")).containsExactlyInAnyOrder(book1,book2,book3);
         }
 
         @Test
