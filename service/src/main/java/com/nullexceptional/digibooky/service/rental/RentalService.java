@@ -47,13 +47,13 @@ public class RentalService {
 
     private void validateBookIsNotDeleted(Book book) {
         if(book.isDeleted()){
-            throw new IllegalStateException("Book " + book.getId() + " is not available in the library");
+            throw new IllegalStateException("Log ID: " + UUID.randomUUID() + " - Book is not available in the library");
         }
     }
 
     private void validateBookIsNotBorrowed(Book book) {
         if(book.isBorrowed()){
-            throw new IllegalStateException("Book " + book.getId() + " already borrowed");
+            throw new IllegalStateException("Log ID: " + UUID.randomUUID() + " - Book is already borrowed");
         }
     }
 
@@ -72,9 +72,9 @@ public class RentalService {
 
     private String getReturnBookMessage(Rental rental) {
         if(isBookReturnedPassedDueDate(rental)){
-            return "Book " + rental.getBook().getId() + " is returned to late, due date was " + rental.getReturnDate();
+            return "Book is returned to late, due date was on " + rental.getReturnDate();
         }
-        return "Book " + rental.getBook().getId() + " is returned on time";
+        return "Book is returned on time";
     }
 
     private boolean isBookReturnedPassedDueDate(Rental rental) {
