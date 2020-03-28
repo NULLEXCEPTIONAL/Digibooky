@@ -53,7 +53,7 @@ public class RentalService {
 
     private void validateBookIsNotBorrowed(Book book) {
         if(book.isBorrowed()){
-            throw new IllegalStateException("Book " + book.getId() + " already borrowed");
+            throw new IllegalStateException("Book " + book.getId() + " is already borrowed");
         }
     }
 
