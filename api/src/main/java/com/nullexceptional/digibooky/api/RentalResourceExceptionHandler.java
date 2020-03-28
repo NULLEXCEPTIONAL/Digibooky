@@ -1,5 +1,6 @@
 package com.nullexceptional.digibooky.api;
 
+import com.nullexceptional.digibooky.domain.rental.exceptions.RentalIdNotFoundException;
 import com.nullexceptional.digibooky.service.rental.RentalService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,7 +9,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.UUID;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
@@ -23,6 +23,12 @@ public class RentalResourceExceptionHandler {
 
     @ExceptionHandler(IllegalStateException.class)
     protected void illegalStateException(IllegalStateException exception, HttpServletResponse response) throws IOException {
+        LOGGER.warn(exception.getMessage(), exception);
+        response.sendError(BAD_REQUEST.value(), exception.getMessage());
+    }
+
+    @ExceptionHandler(RentalIdNotFoundException.class)
+    protected void rentalIdNotFoundException(RentalIdNotFoundException exception, HttpServletResponse response) throws IOException {
         LOGGER.warn(exception.getMessage(), exception);
         response.sendError(BAD_REQUEST.value(), exception.getMessage());
     }
