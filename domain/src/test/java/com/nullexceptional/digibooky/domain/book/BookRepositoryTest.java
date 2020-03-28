@@ -1,5 +1,6 @@
 package com.nullexceptional.digibooky.domain.book;
 
+import com.nullexceptional.digibooky.domain.book.exceptions.IsbnNotFoundException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -46,10 +47,14 @@ class BookRepositoryTest {
     @Nested
     class GetBookBy{
         @Test
-        void isbn() {
+        void correct_isbn() {
             Assertions.assertThat(bookRepository.getBookByISBN("123456")).isEqualTo(book1);
             Assertions.assertThat(bookRepository.getBookByISBN("123456789")).isEqualTo(book2);
+        }
 
+        @Test
+        void incorrect_isbn() {
+            Assertions.assertThatExceptionOfType(IsbnNotFoundException.class).isThrownBy(() -> bookRepository.getBookByISBN("invalid isbn"));
         }
     }
 

@@ -1,5 +1,6 @@
 package com.nullexceptional.digibooky.domain.book;
 
+import com.nullexceptional.digibooky.domain.book.exceptions.IsbnNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collections;
@@ -34,12 +35,11 @@ public class BookRepository {
         return bookCatalog.containsKey(book.getId());
     }
 
-    public Book getBookByISBN(String isbn){
-        //TODO exception handling for unknown ISBN
-        return bookCatalog.values().stream()
-                .filter(book -> book.getIsbn().equals(isbn))
-                .findAny()
-                .orElse(null);
+    public Book getBookByISBN(String isbn) throws RuntimeException{
+            return bookCatalog.values().stream()
+                    .filter(book -> book.getIsbn().equals(isbn))
+                    .findAny()
+                    .orElseThrow(()->new IsbnNotFoundException("Your book with ISBN: " + isbn + "could not be found."));
     }
 
     public List<Book> searchBookByISBN(String isbn) {
