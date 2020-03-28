@@ -12,8 +12,8 @@ public class User {
     private boolean logged;
     private Role role;
 
-    public User(String inss, String firstName, String lastName, String email, Address address) {
-        this.id = UUID.randomUUID();
+    public User(UUID id, String inss, String firstName, String lastName, String email, Address address) {
+        this.id = id;
         this.inss = inss;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -26,6 +26,7 @@ public class User {
     public void setAddress(Address address) {
         this.address = address;
     }
+
 
     public UUID getId() {
         return id;

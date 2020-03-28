@@ -24,7 +24,7 @@ class RentalMapperTest {
     void toDto_givenARental_thenFieldsOfRentalDtoEqualsFieldsOfRental() {
         // Given
         Book expectedBook = new Book(null,null,null,null);
-        User expectedUser = new User(null,null,null,null,null);
+        User expectedUser = new User(null,null,null,null,null,null);
         Rental rental = new Rental(expectedBook, expectedUser);
         // When
         RentalDto rentalDto = rentalMapper.toDto(rental);
