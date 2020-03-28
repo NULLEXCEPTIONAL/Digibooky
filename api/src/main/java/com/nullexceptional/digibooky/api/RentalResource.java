@@ -26,7 +26,7 @@ public class RentalResource {
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public RentalDto lendBook(CreateRentalDto createRentalDto) {
+    public RentalDto lendBook(@RequestBody CreateRentalDto createRentalDto) {
         return rentalService.lendBook(createRentalDto);
     }
 

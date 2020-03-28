@@ -24,7 +24,8 @@ public class RentalRepository {
     }
 
     public Rental saveRental(Rental rental) {
-        return rentalsRepo.put(rental.getId(), rental);
+        rentalsRepo.put(rental.getId(), rental);
+        return rental;
     }
 
     public Rental updateEndDateRental(UUID rentalId) {

@@ -4,8 +4,8 @@ import java.util.UUID;
 
 public class CreateRentalDto {
 
-    private final UUID memberId;
-    private final String isbn;
+    private UUID memberId;
+    private String isbn;
 
     public CreateRentalDto(UUID memberId, String isbn) {
         this.memberId = memberId;
