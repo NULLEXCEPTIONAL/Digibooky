@@ -1,11 +1,9 @@
 package com.nullexceptional.digibooky.domain.book;
 
+import com.nullexceptional.digibooky.domain.book.exceptions.NotFoundException;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
@@ -34,20 +32,25 @@ public class BookRepository {
         return bookCatalog.containsKey(book.getId());
     }
 
-    public Book getBookByISBN(String isbn){
-        //TODO exception handling for unknown ISBN
-        return bookCatalog.values().stream()
-                .filter(book -> book.getIsbn().equals(isbn))
-                .findAny()
-                .orElse(null);
+    public Book getBookByISBN(String isbn) throws RuntimeException{
+            return bookCatalog.values().stream()
+                    .filter(book -> book.getIsbn().equals(isbn))
+                    .findAny()
+                    .orElseThrow(()->new NotFoundException(isbn));
     }
 
     public List<Book> searchBookByISBN(String isbn) {
         String newISBN = convertWildCardSymbols(isbn);
-        return bookCatalog.values().stream()
-                .filter(book -> book.getIsbn().matches(newISBN))
-                .collect(Collectors.toList());
 
+        List<Book> result = bookCatalog.values().stream()
+                                .filter(book -> book.getIsbn().matches(newISBN))
+                                .collect(Collectors.toList());
+        ifEmptyThrowException(result, isbn);
+        return result;
+    }
+
+    private void ifEmptyThrowException(List<Book> result, String searchString) {
+        if (result.size() == 0) throw new NotFoundException(searchString);
     }
 
     public List<Book> searchBookByTitle(String titleSearchString) {
@@ -59,9 +62,11 @@ public class BookRepository {
 
     public List<Book> searchBookByAuthor(String authorFullName){
         String newName = convertWildCardSymbols(authorFullName);
-        return bookCatalog.values().stream()
-                .filter(book -> book.getAuthorFirstAndLastName().matches("(?i:.*" + newName + ".*)"))
-                .collect(Collectors.toList());
+        List<Book> result = bookCatalog.values().stream()
+                        .filter(book -> book.getAuthorFirstAndLastName().matches("(?i:.*" + newName + ".*)"))
+                        .collect(Collectors.toList());
+        ifEmptyThrowException(result, authorFullName);
+        return result;
     }
 
     String convertWildCardSymbols(String text){
