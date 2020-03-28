@@ -3,10 +3,7 @@ package com.nullexceptional.digibooky.domain.book;
 import com.nullexceptional.digibooky.domain.book.exceptions.IsbnNotFoundException;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
@@ -39,15 +36,17 @@ public class BookRepository {
             return bookCatalog.values().stream()
                     .filter(book -> book.getIsbn().equals(isbn))
                     .findAny()
-                    .orElseThrow(()->new IsbnNotFoundException("Your book with ISBN: " + isbn + "could not be found."));
+                    .orElseThrow(()->new IsbnNotFoundException(isbn));
     }
 
     public List<Book> searchBookByISBN(String isbn) {
         String newISBN = convertWildCardSymbols(isbn);
-        return bookCatalog.values().stream()
-                .filter(book -> book.getIsbn().matches(newISBN))
-                .collect(Collectors.toList());
 
+        List<Book> result = bookCatalog.values().stream()
+                                .filter(book -> book.getIsbn().matches(newISBN))
+                                .collect(Collectors.toList());
+        if (result.size() == 0) throw new IsbnNotFoundException(isbn);
+        return result;
     }
 
     public List<Book> searchBookByTitle(String titleSearchString) {

@@ -47,14 +47,29 @@ class BookRepositoryTest {
     @Nested
     class GetBookBy{
         @Test
-        void correct_isbn() {
+        void correctIsbn() {
             Assertions.assertThat(bookRepository.getBookByISBN("123456")).isEqualTo(book1);
             Assertions.assertThat(bookRepository.getBookByISBN("123456789")).isEqualTo(book2);
         }
 
         @Test
-        void incorrect_isbn() {
+        void incorrectIsbn() {
             Assertions.assertThatExceptionOfType(IsbnNotFoundException.class).isThrownBy(() -> bookRepository.getBookByISBN("invalid isbn"));
+        }
+    }
+
+    @Nested
+    class SearchBookBy{
+        @Test
+        void isbnWithWildcard(){
+            Assertions.assertThat(bookRepository.searchBookByISBN("123?*")).containsExactlyInAnyOrder(book1,book2);
+            Assertions.assertThat(bookRepository.searchBookByISBN("*345*")).containsExactlyInAnyOrder(book1,book2);
+            Assertions.assertThat(bookRepository.searchBookByISBN("*?45*")).containsExactlyInAnyOrder(book1,book2,book3);
+        }
+
+        @Test
+        void isbnWithNoMatch(){
+            Assertions.assertThatExceptionOfType(IsbnNotFoundException.class).isThrownBy(()->bookRepository.searchBookByISBN("12322222222?*"));
         }
     }
 
