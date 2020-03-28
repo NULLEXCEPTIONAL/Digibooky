@@ -1,6 +1,6 @@
 package com.nullexceptional.digibooky.domain.book;
 
-import com.nullexceptional.digibooky.domain.book.exceptions.IsbnNotFoundException;
+import com.nullexceptional.digibooky.domain.book.exceptions.NotFoundException;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -36,7 +36,7 @@ public class BookRepository {
             return bookCatalog.values().stream()
                     .filter(book -> book.getIsbn().equals(isbn))
                     .findAny()
-                    .orElseThrow(()->new IsbnNotFoundException(isbn));
+                    .orElseThrow(()->new NotFoundException(isbn));
     }
 
     public List<Book> searchBookByISBN(String isbn) {
@@ -45,8 +45,12 @@ public class BookRepository {
         List<Book> result = bookCatalog.values().stream()
                                 .filter(book -> book.getIsbn().matches(newISBN))
                                 .collect(Collectors.toList());
-        if (result.size() == 0) throw new IsbnNotFoundException(isbn);
+        ifEmptyThrowException(result, isbn);
         return result;
+    }
+
+    private void ifEmptyThrowException(List<Book> result, String searchString) {
+        if (result.size() == 0) throw new NotFoundException(searchString);
     }
 
     public List<Book> searchBookByTitle(String titleSearchString) {
@@ -58,9 +62,11 @@ public class BookRepository {
 
     public List<Book> searchBookByAuthor(String authorFullName){
         String newName = convertWildCardSymbols(authorFullName);
-        return bookCatalog.values().stream()
-                .filter(book -> book.getAuthorFirstAndLastName().matches("(?i:.*" + newName + ".*)"))
-                .collect(Collectors.toList());
+        List<Book> result = bookCatalog.values().stream()
+                        .filter(book -> book.getAuthorFirstAndLastName().matches("(?i:.*" + newName + ".*)"))
+                        .collect(Collectors.toList());
+        ifEmptyThrowException(result, authorFullName);
+        return result;
     }
 
     String convertWildCardSymbols(String text){

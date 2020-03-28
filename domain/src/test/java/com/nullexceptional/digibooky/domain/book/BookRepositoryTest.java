@@ -1,6 +1,6 @@
 package com.nullexceptional.digibooky.domain.book;
 
-import com.nullexceptional.digibooky.domain.book.exceptions.IsbnNotFoundException;
+import com.nullexceptional.digibooky.domain.book.exceptions.NotFoundException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -54,24 +54,38 @@ class BookRepositoryTest {
 
         @Test
         void incorrectIsbn() {
-            Assertions.assertThatExceptionOfType(IsbnNotFoundException.class).isThrownBy(() -> bookRepository.getBookByISBN("invalid isbn"));
+            Assertions.assertThatExceptionOfType(NotFoundException.class).isThrownBy(() -> bookRepository.getBookByISBN("invalid isbn"));
         }
     }
 
     @Nested
     class SearchBookBy{
         @Test
-        void isbnWithWildcard(){
+        void isbn_WithWildcard(){
             Assertions.assertThat(bookRepository.searchBookByISBN("123?*")).containsExactlyInAnyOrder(book1,book2);
             Assertions.assertThat(bookRepository.searchBookByISBN("*345*")).containsExactlyInAnyOrder(book1,book2);
             Assertions.assertThat(bookRepository.searchBookByISBN("*?45*")).containsExactlyInAnyOrder(book1,book2,book3);
         }
 
         @Test
-        void isbnWithNoMatch(){
-            Assertions.assertThatExceptionOfType(IsbnNotFoundException.class).isThrownBy(()->bookRepository.searchBookByISBN("12322222222?*"));
+        void isbn_WithNoMatch(){
+            Assertions.assertThatExceptionOfType(NotFoundException.class).isThrownBy(()->bookRepository.searchBookByISBN("12322222222?*"));
+        }
+
+        @Test
+        void authorName_WithWildcard(){
+            Assertions.assertThat(bookRepository.searchBookByAuthor("tolk?*")).containsExactlyInAnyOrder(book3);
+            Assertions.assertThat(bookRepository.searchBookByAuthor("Dan")).containsExactlyInAnyOrder(book2);
+            Assertions.assertThat(bookRepository.searchBookByAuthor("J?*")).containsExactlyInAnyOrder(book1,book3);
+        }
+
+        @Test
+        void authorName_WithNoMatch(){
+            Assertions.assertThatExceptionOfType(NotFoundException.class).isThrownBy(()->bookRepository.searchBookByAuthor("Tim?*"));
         }
     }
+
+
 
 
 }
