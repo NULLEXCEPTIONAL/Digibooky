@@ -1,6 +1,7 @@
 package com.nullexceptional.digibooky.domain.rental;
 
 import com.nullexceptional.digibooky.domain.book.Book;
+import com.nullexceptional.digibooky.domain.rental.exceptions.RentalIdNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -29,6 +30,7 @@ public class RentalRepository {
     }
 
     public Rental updateEndDateRental(UUID rentalId) {
+        validateRentalIdExists(rentalId);
         rentalsRepo.get(rentalId).setEndDate(LocalDate.now());
         return rentalsRepo.get(rentalId);
     }
@@ -48,6 +50,13 @@ public class RentalRepository {
     }
 
     public Rental getRental(UUID id){
+        validateRentalIdExists(id);
         return rentalsRepo.get(id);
+    }
+
+    private void validateRentalIdExists(UUID id) {
+        if(rentalsRepo.get(id) == null){
+            throw new RentalIdNotFoundException("Log ID: " + UUID.randomUUID() + " - Rental id not found");
+        }
     }
 }

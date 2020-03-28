@@ -10,8 +10,6 @@ import com.nullexceptional.digibooky.domain.rental.RentalRepository;
 import com.nullexceptional.digibooky.domain.rental.dto.CreateRentalDto;
 import com.nullexceptional.digibooky.domain.rental.dto.RentalDto;
 import com.nullexceptional.digibooky.service.book.BookMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -74,9 +72,9 @@ public class RentalService {
 
     private String getReturnBookMessage(Rental rental) {
         if(isBookReturnedPassedDueDate(rental)){
-            return "Book " + rental.getBook().getId() + " is returned to late, due date was " + rental.getReturnDate();
+            return "Book is returned to late, due date was on " + rental.getReturnDate();
         }
-        return "Book " + rental.getBook().getId() + " is returned on time";
+        return "Book is returned on time";
     }
 
     private boolean isBookReturnedPassedDueDate(Rental rental) {
