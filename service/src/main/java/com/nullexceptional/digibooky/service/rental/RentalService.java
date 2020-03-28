@@ -10,6 +10,8 @@ import com.nullexceptional.digibooky.domain.rental.RentalRepository;
 import com.nullexceptional.digibooky.domain.rental.dto.CreateRentalDto;
 import com.nullexceptional.digibooky.domain.rental.dto.RentalDto;
 import com.nullexceptional.digibooky.service.book.BookMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,13 +49,13 @@ public class RentalService {
 
     private void validateBookIsNotDeleted(Book book) {
         if(book.isDeleted()){
-            throw new IllegalStateException("Book " + book.getId() + " is not available in the library");
+            throw new IllegalStateException("Log ID: " + UUID.randomUUID() + " - Book is not available in the library");
         }
     }
 
     private void validateBookIsNotBorrowed(Book book) {
         if(book.isBorrowed()){
-            throw new IllegalStateException("Book " + book.getId() + " is already borrowed");
+            throw new IllegalStateException("Log ID: " + UUID.randomUUID() + " - Book is already borrowed");
         }
     }
 
