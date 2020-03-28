@@ -21,6 +21,7 @@ class BookRepositoryTest {
     void setUp() {
         bookRepository = new BookRepository();
         emptyBookRepository = new BookRepository();
+
         book1 = new Book("123456", "The Sorceror's Stone", new Author("Rowlings", "JK"), "Blabla summary");
         book2 = new Book("123456789", "The Davinci Code", new Author("Brown", "Dan"), "Blabla summary");
         book3 = new Book("1234789", "The Bible", new Author("Christ", "Jesus"), "Blabla summary");
@@ -31,7 +32,10 @@ class BookRepositoryTest {
 
     @Nested
     class GetAllBooks{
-
+        @Test
+        void withNonEmptyRepository() {
+            Assertions.assertThat(bookRepository.getAllBooks()).containsExactlyInAnyOrder(book1,book2,book3);
+        }
 
         @Test
         void withEmptyRepository() {
@@ -45,6 +49,7 @@ class BookRepositoryTest {
         void isbn() {
             Assertions.assertThat(bookRepository.getBookByISBN("123456")).isEqualTo(book1);
             Assertions.assertThat(bookRepository.getBookByISBN("123456789")).isEqualTo(book2);
+            Assertions.assertThat(bookRepository.getBookByISBN("4563258")).isEqualTo(book3);
         }
     }
 
