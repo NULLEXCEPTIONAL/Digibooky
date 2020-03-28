@@ -49,7 +49,7 @@ class BookRepositoryTest {
         void isbn() {
             Assertions.assertThat(bookRepository.getBookByISBN("123456")).isEqualTo(book1);
             Assertions.assertThat(bookRepository.getBookByISBN("123456789")).isEqualTo(book2);
-            Assertions.assertThat(bookRepository.getBookByISBN("4563258")).isEqualTo(book3);
+
         }
     }
 
