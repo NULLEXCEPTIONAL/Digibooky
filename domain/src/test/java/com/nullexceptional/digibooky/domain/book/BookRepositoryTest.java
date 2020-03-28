@@ -25,7 +25,7 @@ class BookRepositoryTest {
 
         book1 = new Book("123456", "The Sorceror's Stone", new Author("Rowlings", "JK"), "Blabla summary");
         book2 = new Book("123456789", "The Davinci Code", new Author("Brown", "Dan"), "Blabla summary");
-        book3 = new Book("1234789", "The Bible", new Author("Christ", "Jesus"), "Blabla summary");
+        book3 = new Book("4563258", "The Lord Of The Rings", new Author("Tolkien", "JRR"), "Blabla summary");
         bookRepository.getBookCatalog().put(UUID.randomUUID(), book1);
         bookRepository.getBookCatalog().put(UUID.randomUUID(), book2);
         bookRepository.getBookCatalog().put(UUID.randomUUID(), book3);
