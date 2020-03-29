@@ -50,13 +50,13 @@ public class RentalRepository {
                 .collect(Collectors.toList());
     }
 
-    public Rental getRental(UUID rentalId){
+    public Rental getRental(UUID rentalId) {
         validateRentalIdExists(rentalId);
         return rentalsRepo.get(rentalId);
     }
 
     private void validateRentalIdExists(UUID rentalId) {
-        if(rentalsRepo.get(rentalId) == null){
+        if (rentalsRepo.get(rentalId) == null) {
             throw new RentalIdNotFoundException("Log ID: " + UUID.randomUUID() + " - Rental id not found");
         }
     }
