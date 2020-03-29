@@ -95,7 +95,24 @@ class BookRepositoryTest {
         }
     }
 
+    @Nested
+    class UpdateBook{
+        @Test
+        void whenBookIsUpdated_ShouldReturnUpdatedBook() {
+            Book updateBook = new Book("9785568123279", "The Deathly Hallows", new Author("Rowling", "JK"), "Blabla updated summary");
 
+            bookRepository.updateBook(updateBook, updateBook.getIsbn());
+
+            Assertions.assertThat(bookRepository.searchBookByISBN(updateBook.getIsbn())).contains(updateBook);
+        }
+
+        @Test
+        void whenBookIsDeleted_ShouldReturnErrorWhenAskedFor(){
+            bookRepository.deleteBook("9785568123279");
+
+            Assertions.assertThatExceptionOfType(NotFoundException.class).isThrownBy(() -> bookRepository.getBookByISBN("9785568123279"));
+        }
+    }
 
 
 }
