@@ -1,6 +1,8 @@
 package com.nullexceptional.digibooky.domain.book;
 
+import com.nullexceptional.digibooky.domain.IsbnValidator;
 import com.nullexceptional.digibooky.domain.book.exceptions.BookAlreadyExistsException;
+import com.nullexceptional.digibooky.domain.book.exceptions.InvalidIsbnException;
 import com.nullexceptional.digibooky.domain.book.exceptions.NoBookToUpdateException;
 import com.nullexceptional.digibooky.domain.book.exceptions.NotFoundException;
 import org.springframework.stereotype.Repository;
@@ -27,8 +29,12 @@ public class BookRepository {
         return bookCatalog;
     }
 
-    public void registerNewBook(Book book) throws BookAlreadyExistsException {
-        if (!bookInRepository(book)) bookCatalog.put(book.getId(), book);
+    public void registerNewBook(Book book) throws BookAlreadyExistsException, InvalidIsbnException {
+        if (!bookInRepository(book)){
+            //TODO Comment out the ISBN validation
+            //IsbnValidator.validateIsbn13(book.getIsbn());
+            bookCatalog.put(book.getId(), book);
+        }
         else throw new BookAlreadyExistsException("Book " + book.getTitle() + " with ISBN " + book.getIsbn() + " is already registered.");
 
     }
@@ -86,16 +92,18 @@ public class BookRepository {
                 .replace("?", ".?");
     }
 
-    public void updateBook(Book updatedBook, String isbn){
+    public void updateBook(Book updatedBook, String isbn) throws InvalidIsbnException, NoBookToUpdateException {
         Book bookToUpdate = bookCatalog.values().stream()
                             .filter((book) -> book.getIsbn().equals(isbn))
                             .findFirst()
                             .orElseThrow( () -> new NoBookToUpdateException("There is no book with ISBN " + isbn + " to update"));
 
+        //TODO Comment out the ISBN-validation.
+        //IsbnValidator.validateIsbn13(updatedBook.getIsbn());
         bookCatalog.put(bookToUpdate.getId(), updatedBook);
     }
 
-    public void deleteBook(String isbn){
+    public void deleteBook(String isbn) throws NoBookToUpdateException{
         Book bookToDelete = bookCatalog.values().stream()
                 .filter((book) -> book.getIsbn().equals(isbn))
                 .filter((book) -> !book.isDeleted())

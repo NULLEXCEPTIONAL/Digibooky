@@ -1,6 +1,7 @@
 package com.nullexceptional.digibooky.api;
 
 import com.nullexceptional.digibooky.domain.book.exceptions.BookAlreadyExistsException;
+import com.nullexceptional.digibooky.domain.book.exceptions.InvalidIsbnException;
 import com.nullexceptional.digibooky.domain.book.exceptions.NoBookToUpdateException;
 import com.nullexceptional.digibooky.domain.book.exceptions.NotFoundException;
 import org.slf4j.Logger;
@@ -34,5 +35,11 @@ public class BookResourceExceptionHandler {
     protected void searchNotFound(NotFoundException exception, HttpServletResponse response) throws IOException{
         logger.error(exception.getMessage());
         response.sendError(NOT_FOUND.value(), exception.getMessage());
+    }
+
+    @ExceptionHandler(InvalidIsbnException.class)
+    protected void invalidIsbn(InvalidIsbnException exception, HttpServletResponse response) throws IOException{
+        logger.error(exception.getMessage());
+        response.sendError(BAD_REQUEST.value(), exception.getMessage());
     }
 }
