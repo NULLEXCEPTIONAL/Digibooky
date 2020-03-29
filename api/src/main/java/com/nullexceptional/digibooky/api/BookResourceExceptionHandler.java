@@ -21,7 +21,7 @@ public class BookResourceExceptionHandler {
     @ExceptionHandler(BookAlreadyExistsException.class)
     protected void bookAlreadyExistsException(BookAlreadyExistsException exception, HttpServletResponse response) throws IOException{
         logger.error(exception.getMessage());
-        response.sendError(FORBIDDEN.value(), exception.getMessage());
+        response.sendError(BAD_REQUEST.value(), exception.getMessage());
     }
 
     @ExceptionHandler(NoBookToUpdateException.class)
