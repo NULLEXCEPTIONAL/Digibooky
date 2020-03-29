@@ -1,7 +1,7 @@
 package com.nullexceptional.digibooky.api;
 
-import com.nullexceptional.digibooky.domain.book.BookDtoDetails;
-import com.nullexceptional.digibooky.domain.book.BookDtoGeneral;
+import com.nullexceptional.digibooky.domain.book.dto.BookDtoDetails;
+import com.nullexceptional.digibooky.domain.book.dto.BookDtoGeneral;
 import com.nullexceptional.digibooky.service.book.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

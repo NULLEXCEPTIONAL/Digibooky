@@ -2,7 +2,7 @@ package com.nullexceptional.digibooky.service.book;
 
 import com.nullexceptional.digibooky.domain.book.Author;
 import com.nullexceptional.digibooky.domain.book.Book;
-import com.nullexceptional.digibooky.domain.book.BookDtoGeneral;
+import com.nullexceptional.digibooky.domain.book.dto.BookDtoGeneral;
 import com.nullexceptional.digibooky.domain.book.BookRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,7 +49,7 @@ class BookServiceTest {
 
         @Test
         void withEmptyRepository() {
-            Assertions.assertThat(emptyBookRepository.getAllBooks()).isEqualTo(Arrays.asList());
+            Assertions.assertThat(emptyBookRepository.getAllBooks().size()).isEqualTo(0);
         }
     }
 }

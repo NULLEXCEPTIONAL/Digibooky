@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Repository
 public class BookRepository {
-    Map<UUID, Book> bookCatalog;
+    private Map<UUID, Book> bookCatalog;
 
     public BookRepository() {
         this.bookCatalog = new ConcurrentHashMap<>();
@@ -90,7 +90,7 @@ public class BookRepository {
         Book bookToUpdate = bookCatalog.values().stream()
                             .filter((book) -> book.getIsbn().equals(isbn))
                             .findFirst()
-                            .orElseThrow( () -> new NoBookToUpdateException("There is no book with ISBN " + isbn + "to update"));
+                            .orElseThrow( () -> new NoBookToUpdateException("There is no book with ISBN " + isbn + " to update"));
 
         bookCatalog.put(bookToUpdate.getId(), updatedBook);
     }
@@ -100,7 +100,7 @@ public class BookRepository {
                 .filter((book) -> book.getIsbn().equals(isbn))
                 .filter((book) -> !book.isDeleted())
                 .findFirst()
-                .orElseThrow( () -> new NoBookToUpdateException("There is no book with ISBN " + isbn + "to delete"));
+                .orElseThrow( () -> new NoBookToUpdateException("There is no book with ISBN " + isbn + " to delete"));
 
         bookToDelete.delete();
     }

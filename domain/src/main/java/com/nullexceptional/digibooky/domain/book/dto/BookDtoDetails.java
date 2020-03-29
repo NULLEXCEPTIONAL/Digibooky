@@ -1,4 +1,6 @@
-package com.nullexceptional.digibooky.domain.book;
+package com.nullexceptional.digibooky.domain.book.dto;
+
+import com.nullexceptional.digibooky.domain.book.Author;
 
 public class BookDtoDetails {
     private final String isbn;
