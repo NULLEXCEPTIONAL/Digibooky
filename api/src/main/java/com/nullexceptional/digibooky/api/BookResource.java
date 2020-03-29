@@ -48,6 +48,16 @@ public class BookResource {
         bookService.registerNewBook(bookToRegister);
     }
 
+    @PutMapping(consumes="application/json",  path = "{isbn}")
+    public void updateBook(@RequestBody BookDtoDetails bookToUpdate, @PathVariable("isbn") String isbn){
+        bookService.updateBook(bookToUpdate, isbn);
+    }
+
+    @DeleteMapping(path = "{isbn}")
+    public void deleteBook(@PathVariable("isbn") String isbn){
+        bookService.deleteBook(isbn);
+    }
+
 
 
 

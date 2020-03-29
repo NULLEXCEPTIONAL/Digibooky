@@ -62,6 +62,10 @@ public class Book {
         return author.getFirstName() + " " + author.getLastName();
     }
 
+    public void delete() {
+        this.isDeleted = true;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -69,7 +73,7 @@ public class Book {
         Book book = (Book) o;
         return isBorrowed == book.isBorrowed &&
                 isDeleted == book.isDeleted &&
-                Objects.equals(id, book.id) &&
+                //Objects.equals(id, book.id) &&
                 Objects.equals(isbn, book.isbn) &&
                 Objects.equals(title, book.title) &&
                 Objects.equals(author, book.author) &&

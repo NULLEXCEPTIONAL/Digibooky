@@ -1,5 +1,10 @@
 package com.nullexceptional.digibooky.api;
 
+import com.nullexceptional.digibooky.domain.book.exceptions.BookAlreadyExistsException;
+import com.nullexceptional.digibooky.domain.book.exceptions.NoBookToUpdateException;
+import com.nullexceptional.digibooky.domain.book.exceptions.NotFoundException;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -7,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.FORBIDDEN;
 
 @ControllerAdvice
 public class BookResourceExceptionHandler {
@@ -19,4 +25,14 @@ public class BookResourceExceptionHandler {
 //    protected void illegalStateException(IllegalStateException exception, HttpServletResponse response) throws IOException{
 //        response.sendError(BAD_REQUEST.value(), exception.getMessage());
 //    }
+
+    @ExceptionHandler(BookAlreadyExistsException.class)
+    protected void bookAlreadyExistsException(BookAlreadyExistsException exception, HttpServletResponse response) throws IOException{
+        response.sendError(FORBIDDEN.value(), exception.getMessage());
+    }
+
+    @ExceptionHandler(NoBookToUpdateException.class)
+    protected void noBookToUpdateWithThatISBN(NoBookToUpdateException exception, HttpServletResponse response) throws IOException{
+        response.sendError(BAD_REQUEST.value(), exception.getMessage());
+    }
 }
