@@ -88,6 +88,11 @@ class BookRepositoryTest {
             Assertions.assertThat(bookRepository.searchBookByTitle("stone")).containsExactlyInAnyOrder(book1);
             Assertions.assertThat(bookRepository.searchBookByTitle("d?vinc?")).containsExactlyInAnyOrder(book2);
         }
+
+        @Test
+        void title_WithNoMatch(){
+            Assertions.assertThatExceptionOfType(NotFoundException.class).isThrownBy(()->bookRepository.searchBookByTitle("Tim?*"));
+        }
     }
 
 

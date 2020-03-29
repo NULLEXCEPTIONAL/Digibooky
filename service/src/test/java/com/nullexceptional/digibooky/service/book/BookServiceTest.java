@@ -116,5 +116,10 @@ class BookServiceTest {
             Assertions.assertThat(bookService.searchBookByTitle("stone")).containsExactlyInAnyOrder(bookDtoDetails1);
             Assertions.assertThat(bookService.searchBookByTitle("d?vinc?")).containsExactlyInAnyOrder(bookDtoDetails2);
         }
+
+        @Test
+        void title_WithNoMatch(){
+            Assertions.assertThatExceptionOfType(NotFoundException.class).isThrownBy(()->bookService.searchBookByTitle("Tim?*"));
+        }
     }
 }
