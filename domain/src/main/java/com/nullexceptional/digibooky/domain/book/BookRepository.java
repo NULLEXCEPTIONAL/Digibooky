@@ -1,5 +1,6 @@
 package com.nullexceptional.digibooky.domain.book;
 
+import com.nullexceptional.digibooky.domain.book.exceptions.BookAlreadyExistsException;
 import com.nullexceptional.digibooky.domain.book.exceptions.NotFoundException;
 import org.springframework.stereotype.Repository;
 
@@ -23,13 +24,13 @@ public class BookRepository {
         return bookCatalog;
     }
 
-    public void registerNewBook(Book book) {
-        //TODO Throw an exception if something goes wrong (Exception-handling?)
+    public void registerNewBook(Book book) throws BookAlreadyExistsException {
         if (!bookInRepository(book)) bookCatalog.put(book.getId(), book);
+        else throw new BookAlreadyExistsException("Book " + book.getTitle() + " with ISBN " + book.getIsbn() + " is already registered.");
     }
 
     private boolean bookInRepository(Book book){
-        return bookCatalog.containsKey(book.getId());
+        return bookCatalog.containsValue(book);
     }
 
     public Book getBookByISBN(String isbn) throws RuntimeException{

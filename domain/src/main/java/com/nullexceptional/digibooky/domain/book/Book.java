@@ -69,7 +69,7 @@ public class Book {
         Book book = (Book) o;
         return isBorrowed == book.isBorrowed &&
                 isDeleted == book.isDeleted &&
-                Objects.equals(id, book.id) &&
+                //Objects.equals(id, book.id) &&
                 Objects.equals(isbn, book.isbn) &&
                 Objects.equals(title, book.title) &&
                 Objects.equals(author, book.author) &&
