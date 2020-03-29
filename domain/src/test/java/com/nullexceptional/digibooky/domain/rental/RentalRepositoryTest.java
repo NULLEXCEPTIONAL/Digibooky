@@ -2,6 +2,7 @@ package com.nullexceptional.digibooky.domain.rental;
 
 import com.nullexceptional.digibooky.domain.book.Book;
 import com.nullexceptional.digibooky.domain.members.User;
+import com.nullexceptional.digibooky.domain.rental.exceptions.RentalIdNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class RentalRepositoryTest {
 
@@ -39,6 +41,18 @@ class RentalRepositoryTest {
         rentalRepository.updateEndDateRental(rental.getId());
         // Then
         assertThat(rental.getEndDate().isEqual(LocalDate.now()));
+    }
+
+    @Test
+    void updateEndDateRental_givenAWrongRentalId_thenThrowRentalIdNotFoundException() {
+        // Given
+        Rental rental = new Rental(null, null);
+        rentalRepository.saveRental(rental);
+        // When
+        // Then
+        assertThatThrownBy(()-> rentalRepository.updateEndDateRental(UUID.randomUUID()))
+                .isInstanceOf(RentalIdNotFoundException.class)
+                .hasMessageStartingWith("Log ID:");
     }
 
     @Test
