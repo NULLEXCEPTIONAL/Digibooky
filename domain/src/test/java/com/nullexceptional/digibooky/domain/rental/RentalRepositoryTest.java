@@ -6,7 +6,6 @@ import com.nullexceptional.digibooky.domain.rental.exceptions.RentalIdNotFoundEx
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.nio.channels.IllegalChannelGroupException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;

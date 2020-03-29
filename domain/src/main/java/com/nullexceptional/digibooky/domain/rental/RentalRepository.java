@@ -55,8 +55,8 @@ public class RentalRepository {
         return rentalsRepo.get(rentalId);
     }
 
-    private void validateRentalIdExists(UUID id) {
-        if(rentalsRepo.get(id) == null){
+    private void validateRentalIdExists(UUID rentalId) {
+        if(rentalsRepo.get(rentalId) == null){
             throw new RentalIdNotFoundException("Log ID: " + UUID.randomUUID() + " - Rental id not found");
         }
     }
