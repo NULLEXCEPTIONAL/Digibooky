@@ -24,4 +24,14 @@ public class BookMapper {
     public Book fromBookDtoGeneralToBook(BookDtoDetails bookDtoDetails){
         return new Book(bookDtoDetails.getIsbn(), bookDtoDetails.getTitle(), bookDtoDetails.getAuthor(), bookDtoDetails.getSummary());
     }
+
+    public BookDtoDetails fromBookToBookDtoDetails (Book book){
+        return new BookDtoDetails(book.getIsbn(), book.getTitle(), book.getAuthor(), book.getSummary());
+    }
+
+    public List<BookDtoDetails> fromBookToBookDtoDetails (List<Book> booklist){
+        return booklist.stream()
+                .map(book -> fromBookToBookDtoDetails(book))
+                .collect(Collectors.toList());
+    }
 }

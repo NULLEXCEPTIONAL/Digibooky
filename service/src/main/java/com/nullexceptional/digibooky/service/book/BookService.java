@@ -26,4 +26,28 @@ public class BookService {
     public void registerNewBook (BookDtoDetails bookToUpdate){
         bookRepository.registerNewBook(bookmapper.fromBookDtoGeneralToBook(bookToUpdate));
     }
+
+    public BookDtoDetails getBookByISBN(String isbn) {
+        return bookmapper.fromBookToBookDtoDetails(bookRepository.getBookByISBN(isbn));
+    }
+
+    public List<BookDtoDetails> searchBookByISBN(String isbn) {
+        return bookmapper.fromBookToBookDtoDetails(bookRepository.searchBookByISBN(isbn));
+    }
+
+    public List<BookDtoDetails> searchBookByAuthorName(String authorFullName){
+        return bookmapper.fromBookToBookDtoDetails(bookRepository.searchBookByAuthor(authorFullName));
+    }
+
+    public List<BookDtoDetails> getBookByTitle(String titleSearchString){
+        return bookmapper.fromBookToBookDtoDetails(bookRepository.searchBookByTitle(titleSearchString));
+    }
+
+    public void updateBook (BookDtoDetails bookDtoDetails, String isbn){
+        bookRepository.updateBook(bookmapper.fromBookDtoGeneralToBook(bookDtoDetails), isbn);
+    }
+
+    public void deleteBook(String isbn) {
+        bookRepository.deleteBook(isbn);
+    }
 }

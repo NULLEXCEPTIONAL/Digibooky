@@ -2,10 +2,17 @@ package com.nullexceptional.digibooky.domain.members.dto;
 
 import com.nullexceptional.digibooky.domain.members.Address;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class CreateUserDto {
+    @NotNull(message = "You must insert an inss number")
+    @NotBlank(message = "You must insert an inss number")
     private String inss;
     private String firstName;
     private String lastName;
+    @NotNull(message = "You must insert an e-mail")
+    @NotBlank(message = "You must insert an e-mail")
     private String email;
     private Address address;
 
