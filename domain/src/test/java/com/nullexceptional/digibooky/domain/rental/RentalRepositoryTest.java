@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,7 +20,7 @@ class RentalRepositoryTest {
         rentalRepository = new RentalRepository();
     }
 
-   /* @Test
+   @Test
     void saveRental_givenARental_thenRepositoryContainsRental() {
         // Given
         Rental rental = new Rental(null, null);
@@ -43,12 +44,12 @@ class RentalRepositoryTest {
     @Test
     void getLentBooksByMember_givenAUserId_thenReturnListOfLentBooksByMember() {
         // Given
-        User user = new User(null,null,null,null,null,null);
+        User user = new User(UUID.randomUUID(),null,null,null,null,null);
         Book book1 = new Book(null,null,null,null);
         Book book2 = new Book(null,null,null,null);
         Book book3 = new Book(null,null,null,null);
         rentalRepository.saveRental(new Rental(book1,user));
-        rentalRepository.saveRental(new Rental(book2,new User(null,null,null,null,null,null)));
+        rentalRepository.saveRental(new Rental(book2,new User(UUID.randomUUID(),null,null,null,null,null)));
         rentalRepository.saveRental(new Rental(book3,user));
         // When
         List<Book> lentBooksByMember = rentalRepository.getLentBooksByMember(user.getId());
@@ -75,5 +76,5 @@ class RentalRepositoryTest {
         List<Book> overdueBooks = rentalRepository.getAllBooksOverdue();
         // Then
         assertThat(overdueBooks).containsExactly(bookOverdue);
-    }*/
+    }
 }

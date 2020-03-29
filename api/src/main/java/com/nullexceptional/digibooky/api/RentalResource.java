@@ -36,10 +36,10 @@ public class RentalResource {
         return rentalService.returnBook(rentalId);
     }
 
-    @GetMapping(path = "/{userId}", produces = APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/{memberId}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public List<BookDtoGeneral> getLentBooksByMember(@PathVariable UUID userId) {
-        return rentalService.getLentBooksByMember(userId);
+    public List<BookDtoGeneral> getLentBooksByMember(@PathVariable UUID memberId) {
+        return rentalService.getLentBooksByMember(memberId);
     }
 
     @GetMapping(produces = APPLICATION_JSON_VALUE)

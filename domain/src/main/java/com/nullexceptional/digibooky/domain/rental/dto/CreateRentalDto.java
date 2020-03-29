@@ -5,18 +5,18 @@ import java.util.UUID;
 public class CreateRentalDto {
 
     private final UUID memberId;
-    private final String isbn;
+    private final String bookISBN;
 
-    public CreateRentalDto(UUID memberId, String isbn) {
+    public CreateRentalDto(UUID memberId, String bookISBN) {
         this.memberId = memberId;
-        this.isbn = isbn;
+        this.bookISBN = bookISBN;
     }
 
     public UUID getMemberId() {
         return memberId;
     }
 
-    public String getIsbn() {
-        return isbn;
+    public String getBookISBN() {
+        return bookISBN;
     }
 }

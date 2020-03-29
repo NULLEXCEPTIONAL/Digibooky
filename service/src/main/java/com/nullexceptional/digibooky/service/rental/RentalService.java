@@ -37,7 +37,7 @@ public class RentalService {
     }
 
     public RentalDto lendBook(CreateRentalDto createRentalDto) {
-        Book book = bookRepository.getBookByISBN(createRentalDto.getIsbn());
+        Book book = bookRepository.getBookByISBN(createRentalDto.getBookISBN());
         validateBookIsNotBorrowed(book);
         validateBookIsNotDeleted(book);
         book.setBorrowed(true);
