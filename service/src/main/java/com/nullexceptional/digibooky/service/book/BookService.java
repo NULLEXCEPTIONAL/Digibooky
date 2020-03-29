@@ -1,7 +1,7 @@
 package com.nullexceptional.digibooky.service.book;
 
-import com.nullexceptional.digibooky.domain.book.BookDtoDetails;
-import com.nullexceptional.digibooky.domain.book.BookDtoGeneral;
+import com.nullexceptional.digibooky.domain.book.dto.BookDtoDetails;
+import com.nullexceptional.digibooky.domain.book.dto.BookDtoGeneral;
 import com.nullexceptional.digibooky.domain.book.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -39,7 +39,7 @@ public class BookService {
         return bookmapper.fromBookToBookDtoDetails(bookRepository.searchBookByAuthor(authorFullName));
     }
 
-    public List<BookDtoDetails> getBookByTitle(String titleSearchString){
+    public List<BookDtoDetails> searchBookByTitle(String titleSearchString){
         return bookmapper.fromBookToBookDtoDetails(bookRepository.searchBookByTitle(titleSearchString));
     }
 
