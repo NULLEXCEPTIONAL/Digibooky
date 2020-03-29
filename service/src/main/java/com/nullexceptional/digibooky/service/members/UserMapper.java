@@ -15,9 +15,9 @@ public class UserMapper {
     }
 
 
-    public List<UserDto> fromUserToUserDto(List<User> usersList) {
+    public List<UserDto> fromUsersToUsersDtoList(List<User> usersList) {
         return usersList.stream()
-                .map(user -> toUserDTO(user))
+                .map(this::toUserDTO)
                 .collect(Collectors.toList());
     }
 
