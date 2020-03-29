@@ -1,6 +1,7 @@
 package com.nullexceptional.digibooky.domain.book;
 
 import com.nullexceptional.digibooky.domain.book.exceptions.BookAlreadyExistsException;
+import com.nullexceptional.digibooky.domain.book.exceptions.NoBookToUpdateException;
 import com.nullexceptional.digibooky.domain.book.exceptions.NotFoundException;
 import org.springframework.stereotype.Repository;
 
@@ -17,7 +18,9 @@ public class BookRepository {
     }
 
     public List<Book> getAllBooks(){
-        return bookCatalog.values().stream().collect(Collectors.toList());
+        return bookCatalog.values().stream()
+                .filter((book) -> book.isDeleted() == false)
+                .collect(Collectors.toList());
     }
 
     public Map<UUID, Book> getBookCatalog() {
@@ -27,6 +30,7 @@ public class BookRepository {
     public void registerNewBook(Book book) throws BookAlreadyExistsException {
         if (!bookInRepository(book)) bookCatalog.put(book.getId(), book);
         else throw new BookAlreadyExistsException("Book " + book.getTitle() + " with ISBN " + book.getIsbn() + " is already registered.");
+
     }
 
     private boolean bookInRepository(Book book){
@@ -74,6 +78,25 @@ public class BookRepository {
         return text
                 .replace("*", ".*")
                 .replace("?", ".?");
+    }
+
+    public void updateBook(Book updatedBook, String isbn){
+        Book bookToUpdate = bookCatalog.values().stream()
+                            .filter((book) -> book.getIsbn().equals(isbn))
+                            .findFirst()
+                            .orElseThrow( () -> new NoBookToUpdateException("There is no book with ISBN " + isbn + "to update"));
+
+        bookCatalog.put(bookToUpdate.getId(), updatedBook);
+    }
+
+    public void deleteBook(String isbn){
+        Book bookToDelete = bookCatalog.values().stream()
+                .filter((book) -> book.getIsbn().equals(isbn))
+                .filter((book) -> !book.isDeleted())
+                .findFirst()
+                .orElseThrow( () -> new NoBookToUpdateException("There is no book with ISBN " + isbn + "to delete"));
+
+        bookToDelete.delete();
     }
 
 }

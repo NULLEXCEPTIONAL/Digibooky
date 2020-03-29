@@ -62,6 +62,10 @@ public class Book {
         return author.getFirstName() + " " + author.getLastName();
     }
 
+    public void delete() {
+        this.isDeleted = true;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

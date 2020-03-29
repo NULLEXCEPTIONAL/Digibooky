@@ -42,4 +42,12 @@ public class BookService {
     public List<BookDtoDetails> getBookByTitle(String titleSearchString){
         return bookmapper.fromBookToBookDtoDetails(bookRepository.searchBookByTitle(titleSearchString));
     }
+
+    public void updateBook (BookDtoDetails bookDtoDetails, String isbn){
+        bookRepository.updateBook(bookmapper.fromBookDtoGeneralToBook(bookDtoDetails), isbn);
+    }
+
+    public void deleteBook(String isbn) {
+        bookRepository.deleteBook(isbn);
+    }
 }
