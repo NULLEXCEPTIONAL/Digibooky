@@ -27,6 +27,10 @@ public class UserDto {
     }
 
 
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     public UUID getId() {
         return id;
     }
