@@ -6,6 +6,7 @@ import com.nullexceptional.digibooky.domain.rental.exceptions.RentalIdNotFoundEx
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.nio.channels.IllegalChannelGroupException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -90,5 +91,28 @@ class RentalRepositoryTest {
         List<Book> overdueBooks = rentalRepository.getAllBooksOverdue();
         // Then
         assertThat(overdueBooks).containsExactly(bookOverdue);
+    }
+
+    @Test
+    void getRental_givenACorrectRentalId_thenReturnRental() {
+        // Given
+        Rental expectedRental = new Rental(null,null);
+        rentalRepository.saveRental(expectedRental);
+        // When
+        Rental actualRental = rentalRepository.getRental(expectedRental.getId());
+        // Then
+        assertThat(actualRental).isEqualTo(expectedRental);
+    }
+
+    @Test
+    void getRental_givenAWrongRentalId_thenReturnRental() {
+        // Given
+        Rental expectedRental = new Rental(null,null);
+        rentalRepository.saveRental(expectedRental);
+        // When
+        // Then
+        assertThatThrownBy(()-> rentalRepository.getRental(UUID.randomUUID()))
+                .isInstanceOf(RentalIdNotFoundException.class)
+                .hasMessageStartingWith("Log ID:");
     }
 }

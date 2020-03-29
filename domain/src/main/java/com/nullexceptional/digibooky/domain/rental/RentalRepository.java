@@ -50,9 +50,9 @@ public class RentalRepository {
                 .collect(Collectors.toList());
     }
 
-    public Rental getRental(UUID id){
-        validateRentalIdExists(id);
-        return rentalsRepo.get(id);
+    public Rental getRental(UUID rentalId){
+        validateRentalIdExists(rentalId);
+        return rentalsRepo.get(rentalId);
     }
 
     private void validateRentalIdExists(UUID id) {
