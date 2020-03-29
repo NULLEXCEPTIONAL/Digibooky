@@ -56,16 +56,14 @@ public class BookRepository {
         return result;
     }
 
-    private void ifEmptyThrowException(List<Book> result, String searchString) {
-        if (result.size() == 0) throw new NotFoundException(searchString);
-    }
-
     public List<Book> searchBookByTitle(String titleSearchString) {
         String newText = convertWildCardSymbols(titleSearchString);
-        return bookCatalog.values().stream()
-                .filter((book) -> !book.isDeleted())
-                .filter(book -> book.getTitle().matches("(?i:.*" + newText + ".*)"))
-                .collect(Collectors.toList());
+        List<Book> result = bookCatalog.values().stream()
+                                .filter((book) -> !book.isDeleted())
+                                .filter(book -> book.getTitle().matches("(?i:.*" + newText + ".*)"))
+                                .collect(Collectors.toList());
+        ifEmptyThrowException(result, titleSearchString);
+        return result;
     }
 
     public List<Book> searchBookByAuthor(String authorFullName){
@@ -76,6 +74,10 @@ public class BookRepository {
                         .collect(Collectors.toList());
         ifEmptyThrowException(result, authorFullName);
         return result;
+    }
+
+    private void ifEmptyThrowException(List<Book> result, String searchString) {
+        if (result.size() == 0) throw new NotFoundException(searchString);
     }
 
     String convertWildCardSymbols(String text){
