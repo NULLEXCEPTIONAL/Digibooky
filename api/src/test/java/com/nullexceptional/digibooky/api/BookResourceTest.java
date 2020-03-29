@@ -3,7 +3,7 @@
 //import com.nullexceptional.digibooky.DigibookyTestApplication;
 //import com.nullexceptional.digibooky.domain.book.Author;
 //import com.nullexceptional.digibooky.domain.book.Book;
-//import com.nullexceptional.digibooky.domain.book.BookDtoGeneral;
+//import com.nullexceptional.digibooky.domain.book.dto.BookDtoGeneral;
 //import com.nullexceptional.digibooky.service.book.BookMapper;
 //import io.restassured.RestAssured;
 //import org.hamcrest.Matchers;

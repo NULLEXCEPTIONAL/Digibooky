@@ -1,8 +1,8 @@
 package com.nullexceptional.digibooky.service.book;
 
 import com.nullexceptional.digibooky.domain.book.Book;
-import com.nullexceptional.digibooky.domain.book.BookDtoDetails;
-import com.nullexceptional.digibooky.domain.book.BookDtoGeneral;
+import com.nullexceptional.digibooky.domain.book.dto.BookDtoDetails;
+import com.nullexceptional.digibooky.domain.book.dto.BookDtoGeneral;
 import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;

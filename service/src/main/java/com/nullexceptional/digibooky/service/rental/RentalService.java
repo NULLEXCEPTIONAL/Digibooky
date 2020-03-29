@@ -1,7 +1,7 @@
 package com.nullexceptional.digibooky.service.rental;
 
 import com.nullexceptional.digibooky.domain.book.Book;
-import com.nullexceptional.digibooky.domain.book.BookDtoGeneral;
+import com.nullexceptional.digibooky.domain.book.dto.BookDtoGeneral;
 import com.nullexceptional.digibooky.domain.book.BookRepository;
 import com.nullexceptional.digibooky.domain.members.User;
 import com.nullexceptional.digibooky.domain.members.UserRepository;
@@ -37,7 +37,7 @@ public class RentalService {
     }
 
     public RentalDto lendBook(CreateRentalDto createRentalDto) {
-        Book book = bookRepository.getBookByISBN(createRentalDto.getIsbn());
+        Book book = bookRepository.getBookByISBN(createRentalDto.getBookISBN());
         validateBookIsNotBorrowed(book);
         validateBookIsNotDeleted(book);
         book.setBorrowed(true);

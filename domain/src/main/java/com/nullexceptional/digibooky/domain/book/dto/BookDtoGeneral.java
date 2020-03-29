@@ -1,6 +1,7 @@
-package com.nullexceptional.digibooky.domain.book;
+package com.nullexceptional.digibooky.domain.book.dto;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.nullexceptional.digibooky.domain.book.Author;
 
 import java.util.Objects;
 
