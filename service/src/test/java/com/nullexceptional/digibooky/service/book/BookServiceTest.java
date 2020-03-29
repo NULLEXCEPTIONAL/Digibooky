@@ -30,8 +30,8 @@ class BookServiceTest {
         emptyBookRepository = new BookRepository();
         bookMapper = new BookMapper();
         bookService = new BookService(bookRepository, bookMapper);
-        book1 = new Book("123456", "The Sorceror's Stone", new Author("Rowlings", "JK"), "Blabla summary");
-        book2 = new Book("123456789", "The Davinci Code", new Author("Brown", "Dan"), "Blabla summary");
+        book1 = new Book("9785568123279", "The Sorceror's Stone", new Author("Rowlings", "JK"), "Blabla summary");
+        book2 = new Book("9781147511154", "The Davinci Code", new Author("Brown", "Dan"), "Blabla summary");
         bookRepository.getBookCatalog().put(UUID.randomUUID(), book1);
         bookRepository.getBookCatalog().put(UUID.randomUUID(), book2);
         bookDto1 = bookMapper.fromBookToBookDtoGeneral(book1);
