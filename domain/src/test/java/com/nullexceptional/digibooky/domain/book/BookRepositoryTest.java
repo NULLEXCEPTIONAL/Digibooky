@@ -5,8 +5,6 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
 import java.util.UUID;
 
 class BookRepositoryTest {
@@ -23,9 +21,9 @@ class BookRepositoryTest {
         bookRepository = new BookRepository();
         emptyBookRepository = new BookRepository();
 
-        book1 = new Book("123456", "The Sorceror's Stone", new Author("Rowlings", "JK"), "Blabla summary");
-        book2 = new Book("123456789", "The Davinci Code", new Author("Brown", "Dan"), "Blabla summary");
-        book3 = new Book("4563258", "The Lord Of The Rings", new Author("Tolkien", "JRR"), "Blabla summary");
+        book1 = new Book("9785568123279", "The Sorceror's Stone", new Author("Rowlings", "JK"), "Blabla summary");
+        book2 = new Book("9781147511154", "The Davinci Code", new Author("Brown", "Dan"), "Blabla summary");
+        book3 = new Book("9788758314617", "The Lord Of The Rings", new Author("Tolkien", "JRR"), "Blabla summary");
         bookRepository.getBookCatalog().put(UUID.randomUUID(), book1);
         bookRepository.getBookCatalog().put(UUID.randomUUID(), book2);
         bookRepository.getBookCatalog().put(UUID.randomUUID(), book3);
@@ -40,7 +38,7 @@ class BookRepositoryTest {
 
         @Test
         void withEmptyRepository() {
-            Assertions.assertThat(emptyBookRepository.getAllBooks()).isEqualTo(Arrays.asList());
+            Assertions.assertThat(emptyBookRepository.getAllBooks().size()).isEqualTo(0);
         }
     }
 
@@ -48,8 +46,8 @@ class BookRepositoryTest {
     class GetBookBy{
         @Test
         void correctIsbn() {
-            Assertions.assertThat(bookRepository.getBookByISBN("123456")).isEqualTo(book1);
-            Assertions.assertThat(bookRepository.getBookByISBN("123456789")).isEqualTo(book2);
+            Assertions.assertThat(bookRepository.getBookByISBN("9785568123279")).isEqualTo(book1);
+            Assertions.assertThat(bookRepository.getBookByISBN("9781147511154")).isEqualTo(book2);
         }
 
         @Test
@@ -62,9 +60,9 @@ class BookRepositoryTest {
     class SearchBookBy{
         @Test
         void isbn_WithWildcard(){
-            Assertions.assertThat(bookRepository.searchBookByISBN("123?*")).containsExactlyInAnyOrder(book1,book2);
-            Assertions.assertThat(bookRepository.searchBookByISBN("*345*")).containsExactlyInAnyOrder(book1,book2);
-            Assertions.assertThat(bookRepository.searchBookByISBN("*?45*")).containsExactlyInAnyOrder(book1,book2,book3);
+            Assertions.assertThat(bookRepository.searchBookByISBN("?7811475111*")).containsExactlyInAnyOrder(book2);
+            Assertions.assertThat(bookRepository.searchBookByISBN("9781147511154")).containsExactlyInAnyOrder(book2);
+            Assertions.assertThat(bookRepository.searchBookByISBN("97*")).containsExactlyInAnyOrder(book1,book2,book3);
         }
 
         @Test
@@ -82,6 +80,18 @@ class BookRepositoryTest {
         @Test
         void authorName_WithNoMatch(){
             Assertions.assertThatExceptionOfType(NotFoundException.class).isThrownBy(()->bookRepository.searchBookByAuthor("Tim?*"));
+        }
+
+        @Test
+        void title_WithWilcard(){
+            Assertions.assertThat(bookRepository.searchBookByTitle("L?rd")).containsExactlyInAnyOrder(book3);
+            Assertions.assertThat(bookRepository.searchBookByTitle("stone")).containsExactlyInAnyOrder(book1);
+            Assertions.assertThat(bookRepository.searchBookByTitle("d?vinc?")).containsExactlyInAnyOrder(book2);
+        }
+
+        @Test
+        void title_WithNoMatch(){
+            Assertions.assertThatExceptionOfType(NotFoundException.class).isThrownBy(()->bookRepository.searchBookByTitle("Tim?*"));
         }
     }
 

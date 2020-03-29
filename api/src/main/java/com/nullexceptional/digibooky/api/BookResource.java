@@ -1,7 +1,7 @@
 package com.nullexceptional.digibooky.api;
 
-import com.nullexceptional.digibooky.domain.book.BookDtoDetails;
-import com.nullexceptional.digibooky.domain.book.BookDtoGeneral;
+import com.nullexceptional.digibooky.domain.book.dto.BookDtoDetails;
+import com.nullexceptional.digibooky.domain.book.dto.BookDtoGeneral;
 import com.nullexceptional.digibooky.service.book.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +35,7 @@ public class BookResource {
 
     @GetMapping(produces = "application/json", path = "title/search/{title}")
     public List<BookDtoDetails> searchBookByTitle(@PathVariable ("title") String titleSearchString){
-        return bookService.getBookByTitle(titleSearchString);
+        return bookService.searchBookByTitle(titleSearchString);
     }
 
     @GetMapping(produces = "application/json", path = "author/search/{authorFullName}")

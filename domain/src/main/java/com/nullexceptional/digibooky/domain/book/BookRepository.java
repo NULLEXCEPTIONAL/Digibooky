@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Repository
 public class BookRepository {
-    Map<UUID, Book> bookCatalog;
+    private Map<UUID, Book> bookCatalog;
 
     public BookRepository() {
         this.bookCatalog = new ConcurrentHashMap<>();
@@ -19,7 +19,7 @@ public class BookRepository {
 
     public List<Book> getAllBooks(){
         return bookCatalog.values().stream()
-                .filter((book) -> book.isDeleted() == false)
+                .filter((book) -> !book.isDeleted())
                 .collect(Collectors.toList());
     }
 
@@ -39,6 +39,7 @@ public class BookRepository {
 
     public Book getBookByISBN(String isbn) throws RuntimeException{
             return bookCatalog.values().stream()
+                    .filter((book) -> !book.isDeleted())
                     .filter(book -> book.getIsbn().equals(isbn))
                     .findAny()
                     .orElseThrow(()->new NotFoundException(isbn));
@@ -48,30 +49,35 @@ public class BookRepository {
         String newISBN = convertWildCardSymbols(isbn);
 
         List<Book> result = bookCatalog.values().stream()
+                                .filter((book) -> !book.isDeleted())
                                 .filter(book -> book.getIsbn().matches(newISBN))
                                 .collect(Collectors.toList());
         ifEmptyThrowException(result, isbn);
         return result;
     }
 
-    private void ifEmptyThrowException(List<Book> result, String searchString) {
-        if (result.size() == 0) throw new NotFoundException(searchString);
-    }
-
     public List<Book> searchBookByTitle(String titleSearchString) {
         String newText = convertWildCardSymbols(titleSearchString);
-        return bookCatalog.values().stream()
-                .filter(book -> book.getTitle().matches("(?i:.*" + newText + ".*)"))
-                .collect(Collectors.toList());
+        List<Book> result = bookCatalog.values().stream()
+                                .filter((book) -> !book.isDeleted())
+                                .filter(book -> book.getTitle().matches("(?i:.*" + newText + ".*)"))
+                                .collect(Collectors.toList());
+        ifEmptyThrowException(result, titleSearchString);
+        return result;
     }
 
     public List<Book> searchBookByAuthor(String authorFullName){
         String newName = convertWildCardSymbols(authorFullName);
         List<Book> result = bookCatalog.values().stream()
+                        .filter((book) -> !book.isDeleted())
                         .filter(book -> book.getAuthorFirstAndLastName().matches("(?i:.*" + newName + ".*)"))
                         .collect(Collectors.toList());
         ifEmptyThrowException(result, authorFullName);
         return result;
+    }
+
+    private void ifEmptyThrowException(List<Book> result, String searchString) {
+        if (result.size() == 0) throw new NotFoundException(searchString);
     }
 
     String convertWildCardSymbols(String text){
@@ -84,7 +90,7 @@ public class BookRepository {
         Book bookToUpdate = bookCatalog.values().stream()
                             .filter((book) -> book.getIsbn().equals(isbn))
                             .findFirst()
-                            .orElseThrow( () -> new NoBookToUpdateException("There is no book with ISBN " + isbn + "to update"));
+                            .orElseThrow( () -> new NoBookToUpdateException("There is no book with ISBN " + isbn + " to update"));
 
         bookCatalog.put(bookToUpdate.getId(), updatedBook);
     }
@@ -94,7 +100,7 @@ public class BookRepository {
                 .filter((book) -> book.getIsbn().equals(isbn))
                 .filter((book) -> !book.isDeleted())
                 .findFirst()
-                .orElseThrow( () -> new NoBookToUpdateException("There is no book with ISBN " + isbn + "to delete"));
+                .orElseThrow( () -> new NoBookToUpdateException("There is no book with ISBN " + isbn + " to delete"));
 
         bookToDelete.delete();
     }
