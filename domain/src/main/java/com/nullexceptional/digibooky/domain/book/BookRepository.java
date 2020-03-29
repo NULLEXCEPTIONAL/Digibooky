@@ -19,7 +19,7 @@ public class BookRepository {
 
     public List<Book> getAllBooks(){
         return bookCatalog.values().stream()
-                .filter((book) -> book.isDeleted() == false)
+                .filter((book) -> !book.isDeleted())
                 .collect(Collectors.toList());
     }
 
@@ -39,6 +39,7 @@ public class BookRepository {
 
     public Book getBookByISBN(String isbn) throws RuntimeException{
             return bookCatalog.values().stream()
+                    .filter((book) -> !book.isDeleted())
                     .filter(book -> book.getIsbn().equals(isbn))
                     .findAny()
                     .orElseThrow(()->new NotFoundException(isbn));
@@ -48,6 +49,7 @@ public class BookRepository {
         String newISBN = convertWildCardSymbols(isbn);
 
         List<Book> result = bookCatalog.values().stream()
+                                .filter((book) -> !book.isDeleted())
                                 .filter(book -> book.getIsbn().matches(newISBN))
                                 .collect(Collectors.toList());
         ifEmptyThrowException(result, isbn);
@@ -61,6 +63,7 @@ public class BookRepository {
     public List<Book> searchBookByTitle(String titleSearchString) {
         String newText = convertWildCardSymbols(titleSearchString);
         return bookCatalog.values().stream()
+                .filter((book) -> !book.isDeleted())
                 .filter(book -> book.getTitle().matches("(?i:.*" + newText + ".*)"))
                 .collect(Collectors.toList());
     }
@@ -68,6 +71,7 @@ public class BookRepository {
     public List<Book> searchBookByAuthor(String authorFullName){
         String newName = convertWildCardSymbols(authorFullName);
         List<Book> result = bookCatalog.values().stream()
+                        .filter((book) -> !book.isDeleted())
                         .filter(book -> book.getAuthorFirstAndLastName().matches("(?i:.*" + newName + ".*)"))
                         .collect(Collectors.toList());
         ifEmptyThrowException(result, authorFullName);
