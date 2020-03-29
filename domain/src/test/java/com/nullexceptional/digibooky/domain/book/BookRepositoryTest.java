@@ -40,7 +40,7 @@ class BookRepositoryTest {
 
         @Test
         void withEmptyRepository() {
-            Assertions.assertThat(emptyBookRepository.getAllBooks()).isEqualTo(Arrays.asList());
+            Assertions.assertThat(emptyBookRepository.getAllBooks().size()).isEqualTo(0);
         }
     }
 
@@ -82,6 +82,13 @@ class BookRepositoryTest {
         @Test
         void authorName_WithNoMatch(){
             Assertions.assertThatExceptionOfType(NotFoundException.class).isThrownBy(()->bookRepository.searchBookByAuthor("Tim?*"));
+        }
+
+        @Test
+        void title_WithWilcard(){
+            Assertions.assertThat(bookRepository.searchBookByTitle("L?rd")).containsExactlyInAnyOrder(book3);
+            Assertions.assertThat(bookRepository.searchBookByTitle("stone")).containsExactlyInAnyOrder(book1);
+            Assertions.assertThat(bookRepository.searchBookByTitle("d?vinc?")).containsExactlyInAnyOrder(book2);
         }
     }
 
