@@ -39,7 +39,7 @@ public class BookService {
         return bookmapper.fromBookToBookDtoDetails(bookRepository.searchBookByAuthor(authorFullName));
     }
 
-    public List<BookDtoDetails> getBookByTitle(String titleSearchString){
+    public List<BookDtoDetails> searchBookByTitle(String titleSearchString){
         return bookmapper.fromBookToBookDtoDetails(bookRepository.searchBookByTitle(titleSearchString));
     }
 

@@ -35,7 +35,7 @@ public class BookResource {
 
     @GetMapping(produces = "application/json", path = "title/search/{title}")
     public List<BookDtoDetails> searchBookByTitle(@PathVariable ("title") String titleSearchString){
-        return bookService.getBookByTitle(titleSearchString);
+        return bookService.searchBookByTitle(titleSearchString);
     }
 
     @GetMapping(produces = "application/json", path = "author/search/{authorFullName}")
