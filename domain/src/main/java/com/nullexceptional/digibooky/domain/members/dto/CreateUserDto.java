@@ -16,9 +16,7 @@ public class CreateUserDto {
     private String email;
     private Address address;
 
-    public void setInss(String inss) {
-        this.inss = inss;
-    }
+
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
