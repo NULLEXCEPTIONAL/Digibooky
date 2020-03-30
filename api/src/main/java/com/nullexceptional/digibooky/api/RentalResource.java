@@ -6,6 +6,7 @@ import com.nullexceptional.digibooky.domain.rental.dto.RentalDto;
 import com.nullexceptional.digibooky.service.rental.RentalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,24 +25,28 @@ public class RentalResource {
         this.rentalService = rentalService;
     }
 
+    @PreAuthorize("hasAuthority('Member')")
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public RentalDto lendBook(@RequestBody CreateRentalDto createRentalDto) {
         return rentalService.lendBook(createRentalDto);
     }
 
+    @PreAuthorize("hasAuthority('Member')")
     @PatchMapping(path = "/{rentalId}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public String returnBook(@PathVariable UUID rentalId) {
         return rentalService.returnBook(rentalId);
     }
 
+    @PreAuthorize("hasAuthority('Librarian')")
     @GetMapping(path = "/{memberId}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public List<BookDtoGeneral> getLentBooksByMember(@PathVariable UUID memberId) {
         return rentalService.getLentBooksByMember(memberId);
     }
 
+    @PreAuthorize("hasAuthority('Librarian')")
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public List<BookDtoGeneral> getAllBooksOverdue() {
