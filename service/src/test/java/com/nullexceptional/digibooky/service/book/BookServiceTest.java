@@ -10,6 +10,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
 import java.util.UUID;
 
 class BookServiceTest {
@@ -30,7 +31,6 @@ class BookServiceTest {
 
 
     @BeforeEach
-
     void setUp() {
         bookRepository = new BookRepository();
         emptyBookRepository = new BookRepository();
@@ -61,7 +61,7 @@ class BookServiceTest {
     class GetAllBooks {
         @Test
         void withNonEmptyRepository() {
-            Assertions.assertThat(bookService.getAllBooks()).containsExactlyInAnyOrder(bookDtoGeneral1, bookDtoGeneral2,bookDtoGeneral3);
+            Assertions.assertThat(bookService.getAllBooks()).containsExactlyInAnyOrder(bookDtoGeneral1, bookDtoGeneral2, bookDtoGeneral3);
         }
 
         @Test
@@ -71,7 +71,7 @@ class BookServiceTest {
     }
 
     @Nested
-    class GetBookBy{
+    class GetBookBy {
         @Test
         void correctIsbn() {
             Assertions.assertThat(bookService.getBookByISBN("9785568123279")).isEqualTo(bookDtoDetails1);
@@ -85,41 +85,41 @@ class BookServiceTest {
     }
 
     @Nested
-    class SearchBookBy{
+    class SearchBookBy {
         @Test
-        void isbn_WithWildcard(){
+        void isbn_WithWildcard() {
             Assertions.assertThat(bookService.searchBookByISBN("?7811475111*")).containsExactlyInAnyOrder(bookDtoDetails2);
             Assertions.assertThat(bookService.searchBookByISBN("9781147511154")).containsExactlyInAnyOrder(bookDtoDetails2);
-            Assertions.assertThat(bookService.searchBookByISBN("97*")).containsExactlyInAnyOrder(bookDtoDetails1,bookDtoDetails2,bookDtoDetails3);
+            Assertions.assertThat(bookService.searchBookByISBN("97*")).containsExactlyInAnyOrder(bookDtoDetails1, bookDtoDetails2, bookDtoDetails3);
         }
 
         @Test
-        void isbn_WithNoMatch(){
-            Assertions.assertThatExceptionOfType(NotFoundException.class).isThrownBy(()->bookService.searchBookByISBN("12322222222?*"));
+        void isbn_WithNoMatch() {
+            Assertions.assertThatExceptionOfType(NotFoundException.class).isThrownBy(() -> bookService.searchBookByISBN("12322222222?*"));
         }
 
         @Test
-        void authorName_WithWildcard(){
+        void authorName_WithWildcard() {
             Assertions.assertThat(bookService.searchBookByAuthorName("tolk?*")).containsExactlyInAnyOrder(bookDtoDetails3);
             Assertions.assertThat(bookService.searchBookByAuthorName("Dan")).containsExactlyInAnyOrder(bookDtoDetails2);
-            Assertions.assertThat(bookService.searchBookByAuthorName("J?*")).containsExactlyInAnyOrder(bookDtoDetails1,bookDtoDetails3);
+            Assertions.assertThat(bookService.searchBookByAuthorName("J?*")).containsExactlyInAnyOrder(bookDtoDetails1, bookDtoDetails3);
         }
 
         @Test
-        void authorName_WithNoMatch(){
-            Assertions.assertThatExceptionOfType(NotFoundException.class).isThrownBy(()->bookService.searchBookByAuthorName("Tim?*"));
+        void authorName_WithNoMatch() {
+            Assertions.assertThatExceptionOfType(NotFoundException.class).isThrownBy(() -> bookService.searchBookByAuthorName("Tim?*"));
         }
 
         @Test
-        void title_WithWilcard(){
+        void title_WithWilcard() {
             Assertions.assertThat(bookService.searchBookByTitle("L?rd")).containsExactlyInAnyOrder(bookDtoDetails3);
             Assertions.assertThat(bookService.searchBookByTitle("stone")).containsExactlyInAnyOrder(bookDtoDetails1);
             Assertions.assertThat(bookService.searchBookByTitle("d?vinc?")).containsExactlyInAnyOrder(bookDtoDetails2);
         }
 
         @Test
-        void title_WithNoMatch(){
-            Assertions.assertThatExceptionOfType(NotFoundException.class).isThrownBy(()->bookService.searchBookByTitle("Tim?*"));
+        void title_WithNoMatch() {
+            Assertions.assertThatExceptionOfType(NotFoundException.class).isThrownBy(() -> bookService.searchBookByTitle("Tim?*"));
         }
     }
 }

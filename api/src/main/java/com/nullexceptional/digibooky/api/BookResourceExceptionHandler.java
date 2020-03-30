@@ -20,26 +20,20 @@ public class BookResourceExceptionHandler {
 
 
     @ExceptionHandler(BookAlreadyExistsException.class)
-    protected void bookAlreadyExistsException(BookAlreadyExistsException exception, HttpServletResponse response) throws IOException{
-        logger.error(exception.getMessage());
+    protected void bookAlreadyExistsException(BookAlreadyExistsException exception, HttpServletResponse response) throws IOException {
+        logger.info(exception.getMessage());
         response.sendError(BAD_REQUEST.value(), exception.getMessage());
     }
 
     @ExceptionHandler(NoBookToUpdateException.class)
-    protected void noBookToUpdateWithThatISBN(NoBookToUpdateException exception, HttpServletResponse response) throws IOException{
-        logger.error(exception.getMessage());
+    protected void noBookToUpdateWithThatISBN(NoBookToUpdateException exception, HttpServletResponse response) throws IOException {
+        logger.info(exception.getMessage());
         response.sendError(BAD_REQUEST.value(), exception.getMessage());
     }
 
-    @ExceptionHandler(NotFoundException.class)
-    protected void searchNotFound(NotFoundException exception, HttpServletResponse response) throws IOException{
-        logger.error(exception.getMessage());
-        response.sendError(NOT_FOUND.value(), exception.getMessage());
-    }
-
     @ExceptionHandler(InvalidIsbnException.class)
-    protected void invalidIsbn(InvalidIsbnException exception, HttpServletResponse response) throws IOException{
-        logger.error(exception.getMessage());
+    protected void invalidIsbn(InvalidIsbnException exception, HttpServletResponse response) throws IOException {
+        logger.info(exception.getMessage());
         response.sendError(BAD_REQUEST.value(), exception.getMessage());
     }
 }
