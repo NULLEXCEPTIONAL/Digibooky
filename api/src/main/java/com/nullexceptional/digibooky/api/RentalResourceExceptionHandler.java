@@ -23,13 +23,13 @@ public class RentalResourceExceptionHandler {
 
     @ExceptionHandler(IllegalStateException.class)
     protected void illegalStateException(IllegalStateException exception, HttpServletResponse response) throws IOException {
-        LOGGER.warn(exception.getMessage(), exception);
+        LOGGER.info(exception.getMessage(), exception);
         response.sendError(BAD_REQUEST.value(), exception.getMessage());
     }
 
     @ExceptionHandler(RentalIdNotFoundException.class)
     protected void rentalIdNotFoundException(RentalIdNotFoundException exception, HttpServletResponse response) throws IOException {
-        LOGGER.warn(exception.getMessage(), exception);
+        LOGGER.info(exception.getMessage(), exception);
         response.sendError(BAD_REQUEST.value(), exception.getMessage());
     }
 }
