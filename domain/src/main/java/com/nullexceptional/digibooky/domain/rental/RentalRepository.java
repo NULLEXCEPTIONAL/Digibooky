@@ -39,6 +39,7 @@ public class RentalRepository {
     public List<Book> getLentBooksByMember(UUID userId) {
         return rentalsRepo.values().stream()
                 .filter(rental -> rental.getUser().getId().equals(userId))
+                .filter(rental -> rental.getBook().isBorrowed() == true)
                 .map(Rental::getBook)
                 .collect(Collectors.toList());
     }

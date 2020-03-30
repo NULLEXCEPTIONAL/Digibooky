@@ -109,6 +109,7 @@ public class BookRepository {
                 .filter(book -> !book.isDeleted())
                 .findFirst()
                 .orElseThrow(() -> new NoBookToUpdateException(isbn));
+
         bookToDelete.delete();
         logger.info("A book has been deleted. Title: " + bookToDelete.getTitle() + ", ISBN: " + bookToDelete.getIsbn());
     }
