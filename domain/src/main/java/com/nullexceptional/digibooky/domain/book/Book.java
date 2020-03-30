@@ -72,16 +72,11 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return isBorrowed == book.isBorrowed &&
-                isDeleted == book.isDeleted &&
-                Objects.equals(isbn, book.isbn) &&
-                Objects.equals(title, book.title) &&
-                Objects.equals(author, book.author) &&
-                Objects.equals(summary, book.summary);
+        return Objects.equals(isbn, book.isbn);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(isbn, title, author, summary, isBorrowed, isDeleted);
+        return Objects.hash(isbn);
     }
 }

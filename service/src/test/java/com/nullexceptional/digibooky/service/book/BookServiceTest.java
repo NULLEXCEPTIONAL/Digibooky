@@ -95,7 +95,7 @@ class BookServiceTest {
 
         @Test
         void isbn_WithNoMatch() {
-            Assertions.assertThatExceptionOfType(NotFoundException.class).isThrownBy(() -> bookService.searchBookByISBN("12322222222?*"));
+            Assertions.assertThat(bookService.searchBookByISBN("111111")).isEmpty();
         }
 
         @Test
@@ -107,7 +107,7 @@ class BookServiceTest {
 
         @Test
         void authorName_WithNoMatch() {
-            Assertions.assertThatExceptionOfType(NotFoundException.class).isThrownBy(() -> bookService.searchBookByAuthorName("Tim?*"));
+            Assertions.assertThat(bookService.searchBookByAuthorName("fjdjzj")).isEmpty();
         }
 
         @Test
@@ -119,7 +119,7 @@ class BookServiceTest {
 
         @Test
         void title_WithNoMatch() {
-            Assertions.assertThatExceptionOfType(NotFoundException.class).isThrownBy(() -> bookService.searchBookByTitle("Tim?*"));
+            Assertions.assertThat(bookService.searchBookByTitle("fueejso")).isEmpty();
         }
     }
 }
