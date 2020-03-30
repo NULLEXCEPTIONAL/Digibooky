@@ -11,8 +11,6 @@ public class Author {
     private String lastName;
     private String firstName;
 
-    public Author(){} //empty default constructor for testing
-
     public Author(String lastName, String firstName) {
         this.id = UUID.randomUUID();
         this.lastName = lastName;
