@@ -63,6 +63,7 @@ public class BookRepository {
                 .filter(book -> book.getIsbn().matches(newISBN))
                 .collect(Collectors.toList());
         ifEmptyThrowException(result, isbn);
+        logger.info("Search Book by ISBN: Input ->  " + isbn+ " Results -> " + result.size());
         return result;
     }
 
@@ -73,6 +74,7 @@ public class BookRepository {
                 .filter(book -> book.getTitle().matches("(?i:.*" + newText + ".*)"))
                 .collect(Collectors.toList());
         ifEmptyThrowException(result, titleSearchString);
+        logger.info("Search Book by Title: Input ->  " + titleSearchString+ " Results -> " + result.size());
         return result;
     }
 
@@ -83,6 +85,7 @@ public class BookRepository {
                 .filter(book -> book.getAuthorFirstAndLastName().matches("(?i:.*" + newName + ".*)"))
                 .collect(Collectors.toList());
         ifEmptyThrowException(result, authorFullName);
+        logger.info("Search Book by Author: Input ->  " + authorFullName+ " Results -> " + result.size());
         return result;
     }
 
