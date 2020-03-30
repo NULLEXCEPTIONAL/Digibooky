@@ -8,22 +8,22 @@ import java.util.UUID;
 
 public class RentalDto {
 
-    private final UUID id;
+    private final UUID rentalId;
     private final Book book;
     private final User user;
     private final LocalDate startDate;
-    private final LocalDate endDate;
+    private final LocalDate actualReturnDate;
 
-    public RentalDto(UUID id, Book book, User user, LocalDate startDate, LocalDate endDate) {
-        this.id = id;
+    public RentalDto(UUID rentalId, Book book, User user, LocalDate startDate, LocalDate actualReturnDate) {
+        this.rentalId = rentalId;
         this.book = book;
         this.user = user;
         this.startDate = startDate;
-        this.endDate = endDate;
+        this.actualReturnDate = actualReturnDate;
     }
 
-    public UUID getId() {
-        return id;
+    public UUID getRentalId() {
+        return rentalId;
     }
 
     public Book getBook() {
@@ -38,7 +38,7 @@ public class RentalDto {
         return startDate;
     }
 
-    public LocalDate getEndDate() {
-        return endDate;
+    public LocalDate getActualReturnDate() {
+        return actualReturnDate;
     }
 }

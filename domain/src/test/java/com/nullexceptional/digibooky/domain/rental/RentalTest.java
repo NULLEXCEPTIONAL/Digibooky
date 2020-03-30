@@ -82,7 +82,7 @@ class RentalTest {
         // Given
         Rental rental = new Rental(book1,user);
         // When
-        LocalDate actualEndDate = rental.getEndDate();
+        LocalDate actualEndDate = rental.getActualReturnDate();
         // Then
         assertThat(actualEndDate).isNull();
     }
