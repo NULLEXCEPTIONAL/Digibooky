@@ -36,8 +36,7 @@ public class BookRepository {
 
     public void registerNewBook(Book book) throws BookAlreadyExistsException, InvalidIsbnException {
         if (!bookInRepository(book)) {
-            //TODO Comment out the ISBN validation
-            //IsbnValidator.validateIsbn13(book.getIsbn());
+            IsbnValidator.validateIsbn13(book.getIsbn());
             bookCatalog.put(book.getId(), book);
             logger.info("A new book has been registered. Title: " + book.getTitle() + ", ISBN: " + book.getIsbn());
         } else
