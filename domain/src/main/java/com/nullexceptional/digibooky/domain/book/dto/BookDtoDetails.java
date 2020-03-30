@@ -1,8 +1,6 @@
 package com.nullexceptional.digibooky.domain.book.dto;
 
 import com.nullexceptional.digibooky.domain.book.Author;
-
-import java.time.LocalDate;
 import java.util.Objects;
 
 public class BookDtoDetails {

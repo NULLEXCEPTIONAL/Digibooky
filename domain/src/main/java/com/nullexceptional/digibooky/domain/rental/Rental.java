@@ -51,8 +51,6 @@ public class Rental {
         this.actualReturnDate = actualReturnDate;
     }
 
-    //created to test getAllBooksOverdue in RentalRepository
-    //if someone knows how to do this without creating a setter please tell ;)
     public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
