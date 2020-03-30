@@ -5,10 +5,12 @@ import com.nullexceptional.digibooky.domain.book.Author;
 import java.util.Objects;
 
 public class BookDtoDetails {
-    private final String isbn;
-    private final String title;
-    private final Author author;
-    private final String summary;
+    private String isbn;
+    private String title;
+    private Author author;
+    private String summary;
+
+    public BookDtoDetails(){} //empty default constructor for testing
 
     public BookDtoDetails(String isbn, String title, Author author, String summary) {
         this.isbn = isbn;
