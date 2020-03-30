@@ -23,9 +23,6 @@ public class User {
         this.role = Role.Member;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
-    }
 
     public void setRole(Role role) {
         this.role = role;
