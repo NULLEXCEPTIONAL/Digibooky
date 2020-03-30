@@ -31,11 +31,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and().httpBasic()
                 .authenticationEntryPoint(authenticationEntryPoint);
+        //configureAntMatchers(http);
     }
 
     private void configureAntMatchers(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
-                .antMatchers("/users").anonymous()
+                .antMatchers("/users").hasAnyRole("Admin","Member")
+                .antMatchers("/users/**").hasRole("Admin")
+                .antMatchers("/books").hasAnyRole("Admin","Member","Librarian")
                 .and().httpBasic()
                 .authenticationEntryPoint(authenticationEntryPoint);
     }
