@@ -3,6 +3,7 @@ package com.nullexceptional.digibooky.service.book;
 import com.nullexceptional.digibooky.domain.book.Book;
 import com.nullexceptional.digibooky.domain.book.dto.BookDtoDetails;
 import com.nullexceptional.digibooky.domain.book.dto.BookDtoGeneral;
+import com.nullexceptional.digibooky.domain.book.dto.BookDtoUpdate;
 import com.nullexceptional.digibooky.domain.rental.RentalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -31,6 +32,10 @@ public class BookMapper {
         return bookList.stream()
                 .map(book -> fromBookToBookDtoGeneral(book))
                 .collect(Collectors.toList());
+    }
+
+    public Book fromBookDtoUpdateToBook(BookDtoUpdate bookDtoUpdate, String isbn) {
+        return new Book(isbn, bookDtoUpdate.getTitle(), bookDtoUpdate.getAuthor(), bookDtoUpdate.getSummary());
     }
 
     public Book fromBookDtoGeneralToBook(BookDtoDetails bookDtoDetails) {

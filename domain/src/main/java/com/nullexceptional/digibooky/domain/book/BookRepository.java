@@ -1,5 +1,6 @@
 package com.nullexceptional.digibooky.domain.book;
 
+import com.nullexceptional.digibooky.domain.IsbnValidator;
 import com.nullexceptional.digibooky.domain.book.exceptions.BookAlreadyExistsException;
 import com.nullexceptional.digibooky.domain.book.exceptions.InvalidIsbnException;
 import com.nullexceptional.digibooky.domain.book.exceptions.NoBookToUpdateException;
@@ -105,8 +106,7 @@ public class BookRepository {
                 .findFirst()
                 .orElseThrow(() -> new NoBookToUpdateException("There is no book with ISBN " + isbn + " to update"));
 
-        //TODO Comment out the ISBN-validation.
-        //IsbnValidator.validateIsbn13(updatedBook.getIsbn());
+        IsbnValidator.validateIsbn13(updatedBook.getIsbn());
         bookCatalog.put(bookToUpdate.getId(), updatedBook);
         logger.info("A book has been updated. Title: " + updatedBook.getTitle() + ", ISBN: " + updatedBook.getIsbn());
     }

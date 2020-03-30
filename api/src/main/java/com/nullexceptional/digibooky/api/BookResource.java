@@ -2,6 +2,7 @@ package com.nullexceptional.digibooky.api;
 
 import com.nullexceptional.digibooky.domain.book.dto.BookDtoDetails;
 import com.nullexceptional.digibooky.domain.book.dto.BookDtoGeneral;
+import com.nullexceptional.digibooky.domain.book.dto.BookDtoUpdate;
 import com.nullexceptional.digibooky.service.book.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -46,14 +47,14 @@ public class BookResource {
 
     @PreAuthorize("hasAuthority('Librarian')")
     @PostMapping(consumes = "application/json")
-    public void registerNewBook(@RequestBody BookDtoDetails bookToRegister) {
-        bookService.registerNewBook(bookToRegister);
+    public BookDtoDetails registerNewBook(@RequestBody BookDtoDetails bookToRegister) {
+        return bookService.registerNewBook(bookToRegister);
     }
 
     @PreAuthorize("hasAuthority('Librarian')")
     @PutMapping(consumes = "application/json", path = "{isbn}")
-    public void updateBook(@RequestBody BookDtoDetails bookToUpdate, @PathVariable("isbn") String isbn) {
-        bookService.updateBook(bookToUpdate, isbn);
+    public BookDtoDetails updateBook(@RequestBody BookDtoUpdate bookToUpdate, @PathVariable("isbn") String isbn) {
+        return bookService.updateBook(bookToUpdate, isbn);
     }
 
     @PreAuthorize("hasAuthority('Librarian')")

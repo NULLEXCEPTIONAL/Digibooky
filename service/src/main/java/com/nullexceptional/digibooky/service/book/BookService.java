@@ -3,6 +3,7 @@ package com.nullexceptional.digibooky.service.book;
 import com.nullexceptional.digibooky.domain.book.dto.BookDtoDetails;
 import com.nullexceptional.digibooky.domain.book.dto.BookDtoGeneral;
 import com.nullexceptional.digibooky.domain.book.BookRepository;
+import com.nullexceptional.digibooky.domain.book.dto.BookDtoUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,8 +24,9 @@ public class BookService {
         return bookmapper.fromBookToBookDtoGeneral(bookRepository.getAllBooks());
     }
 
-    public void registerNewBook(BookDtoDetails newBook) {
+    public BookDtoDetails registerNewBook(BookDtoDetails newBook) {
         bookRepository.registerNewBook(bookmapper.fromBookDtoGeneralToBook(newBook));
+        return bookmapper.fromBookToBookDtoDetails(bookRepository.getBookByISBN(newBook.getIsbn()));
     }
 
     public BookDtoDetails getBookByISBN(String isbn) {
@@ -43,8 +45,9 @@ public class BookService {
         return bookmapper.fromBookToBookDtoDetails(bookRepository.searchBookByTitle(titleSearchString));
     }
 
-    public void updateBook(BookDtoDetails bookDtoDetails, String isbn) {
-        bookRepository.updateBook(bookmapper.fromBookDtoGeneralToBook(bookDtoDetails), isbn);
+    public BookDtoDetails updateBook(BookDtoUpdate bookDtoUpdate, String isbn) {
+        bookRepository.updateBook(bookmapper.fromBookDtoUpdateToBook(bookDtoUpdate,isbn), isbn);
+        return bookmapper.fromBookToBookDtoDetails(bookRepository.getBookByISBN(isbn));
     }
 
     public void deleteBook(String isbn) {
