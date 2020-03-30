@@ -98,6 +98,7 @@ public class BookRepository {
                 .orElseThrow(() -> new NoBookToUpdateException("There is no book with ISBN " + isbn + " to update"));
 
         IsbnValidator.validateIsbn13(updatedBook.getIsbn());
+        updatedBook.setId(bookToUpdate.getId());
         bookCatalog.put(bookToUpdate.getId(), updatedBook);
         logger.info("A book has been updated. Title: " + updatedBook.getTitle() + ", ISBN: " + updatedBook.getIsbn());
     }

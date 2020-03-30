@@ -5,7 +5,7 @@ import java.util.UUID;
 
 
 public class Book {
-    private final UUID id;
+    private  UUID id;
     private final String isbn;
     private final String title;
     private final Author author;
@@ -45,6 +45,10 @@ public class Book {
 
     public void setBorrowed(boolean borrowed) {
         isBorrowed = borrowed;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public boolean isBorrowed() {
