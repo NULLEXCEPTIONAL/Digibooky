@@ -36,7 +36,7 @@ public class BookResourceExceptionHandler {
     }
 
     @ExceptionHandler(NotFoundException.class)
-    protected void invalidIsbn(NotFoundException exception, HttpServletResponse response) throws IOException {
+    protected void notFound(NotFoundException exception, HttpServletResponse response) throws IOException {
         logger.info(exception.getMessage(), exception);
         response.sendError(BAD_REQUEST.value(), exception.getMessage());
     }
