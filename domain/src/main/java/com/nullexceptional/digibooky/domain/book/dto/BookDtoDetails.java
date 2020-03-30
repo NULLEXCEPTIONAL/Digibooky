@@ -2,6 +2,7 @@ package com.nullexceptional.digibooky.domain.book.dto;
 
 import com.nullexceptional.digibooky.domain.book.Author;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class BookDtoDetails {
@@ -9,12 +10,18 @@ public class BookDtoDetails {
     private final String title;
     private final Author author;
     private final String summary;
+    private  String lendingInfo;
 
     public BookDtoDetails(String isbn, String title, Author author, String summary) {
         this.isbn = isbn;
         this.title = title;
         this.author = author;
         this.summary = summary;
+        this.lendingInfo = "This book is available";
+    }
+
+    public void setLendingInfo(String lendingInfo) {
+        this.lendingInfo = "Book is borrowed by " + lendingInfo;
     }
 
     public String getIsbn() {
@@ -32,6 +39,12 @@ public class BookDtoDetails {
     public String getSummary() {
         return summary;
     }
+
+    public String getLendingInfo() {
+        return lendingInfo;
+    }
+
+
 
     @Override
     public boolean equals(Object o) {
