@@ -16,7 +16,7 @@ public class UserDto {
     private Role role;
 
 
-    public UserDto(UUID id,String inss, String firstName, String lastName, String email, Address address,Role role){
+    private UserDto(UUID id,String inss, String firstName, String lastName, String email, Address address,Role role){
         this.id = id;
         this.inss = inss;
         this.firstName = firstName;
