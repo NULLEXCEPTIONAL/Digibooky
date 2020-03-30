@@ -1,7 +1,6 @@
 package com.nullexceptional.digibooky.domain.book;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 import java.util.UUID;
