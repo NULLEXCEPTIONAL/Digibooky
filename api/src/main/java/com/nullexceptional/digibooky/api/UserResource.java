@@ -1,5 +1,6 @@
 package com.nullexceptional.digibooky.api;
 
+import com.nullexceptional.digibooky.domain.members.Role;
 import com.nullexceptional.digibooky.domain.members.dto.CreateUserDto;
 import com.nullexceptional.digibooky.domain.members.dto.UserDto;
 import com.nullexceptional.digibooky.domain.members.exceptions.ApiEmailDuplicationExceptionRequest;
@@ -36,13 +37,19 @@ public class UserResource {
         return userDto;
     }
 
-    private void isInssNotUnique(CreateUserDto createUserDto) {
-        boolean isInssUnique = userService.getAllUsers().stream()
-                .anyMatch(user -> user.getInss().equals(createUserDto.getInss()));
-        if (isInssUnique) {
-            throw new DuplicationInssException("This inss number already exists. This is a custom message");
-        }
+    @PreAuthorize("hasAuthority('Admin')")
+    @PostMapping( path="/librarian",consumes = "application/json", produces = "application/json")
+    @ResponseStatus(HttpStatus.CREATED)
+    public UserDto createLibrarian(@Valid @RequestBody CreateUserDto createUserDto) {
+        isValidEmailAddress(createUserDto.getEmail());
+        isEmailUnique(createUserDto);
+        isInssNotUnique(createUserDto);
+        UserDto librarian = new UserDto(createUserDto.getInss(), createUserDto.getFirstName(), createUserDto.getLastName(), createUserDto.getEmail(), createUserDto.getAddress());
+        librarian.setRole(Role.Librarian);
+        userService.addUser(librarian);
+        return librarian;
     }
+
 
     @PreAuthorize("hasAuthority('Admin')")
     @GetMapping(produces = "application/json", path = "/{id}")
@@ -56,6 +63,14 @@ public class UserResource {
     @ResponseStatus(HttpStatus.OK)
     public List<UserDto> getAllUsers() {
         return userService.getAllUsers();
+    }
+
+    private void isInssNotUnique(CreateUserDto createUserDto) {
+        boolean isInssUnique = userService.getAllUsers().stream()
+                .anyMatch(user -> user.getInss().equals(createUserDto.getInss()));
+        if (isInssUnique) {
+            throw new DuplicationInssException("This inss number already exists. This is a custom message");
+        }
     }
 
     private void isValidEmailAddress(String email) {
