@@ -27,6 +27,9 @@ public class User {
         this.address = address;
     }
 
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     public UUID getId() {
         return id;

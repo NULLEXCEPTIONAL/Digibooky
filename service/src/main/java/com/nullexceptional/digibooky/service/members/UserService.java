@@ -20,7 +20,7 @@ public class UserService {
     }
 
     public List<UserDto> getAllUsers(){
-       return userMapper.fromUserToUserDto(userRepository.getAllUsers());
+       return userMapper.fromUsersToUsersDtoList(userRepository.getAllUsers());
     }
 
     public void addUser(UserDto userDto) {
