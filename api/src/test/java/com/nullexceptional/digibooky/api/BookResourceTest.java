@@ -89,16 +89,6 @@ class BookResourceTest {
                 .expectStatus().is4xxClientError();
     }
 
-    @Test
-    void testRegisterNewBook(){
-        url = "/books";
-        testClient
-                .post()
-                .uri(url)
-                .body(Mono.just(bookDtoDetails),BookDtoDetails.class)
-                .exchange()
-                .expectStatus().isOk();
-    }
 
 
 
