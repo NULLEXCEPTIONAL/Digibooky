@@ -9,7 +9,8 @@ public class RentalMapper {
 
     public RentalDto toDto(Rental rental){
         return new RentalDto(
-                rental.getId(), rental.getBook(),
+                rental.getId(),
+                rental.getBook(),
                 rental.getUser(),
                 rental.getStartDate(),
                 rental.getEndDate()

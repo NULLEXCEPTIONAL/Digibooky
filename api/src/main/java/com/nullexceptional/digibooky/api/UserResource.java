@@ -47,13 +47,14 @@ public class UserResource {
         }
     }
 
-
+    @PreAuthorize("hasAuthority('Admin')")
     @GetMapping(produces = "application/json", path = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     public UserDto getUserById(@PathVariable UUID id) {
         return userService.getUserById(id);
     }
 
+    @PreAuthorize("hasAuthority('Admin')")
     @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public List<UserDto> getAllUsers() {
