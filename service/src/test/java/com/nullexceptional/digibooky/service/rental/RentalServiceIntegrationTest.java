@@ -59,7 +59,7 @@ class RentalServiceIntegrationTest {
         // When
         RentalDto actualRentalDto = rentalService.lendBook(createRentalDto);
         // Then
-        assertThat(actualRentalDto.getId()).isNotNull();
+        assertThat(actualRentalDto.getRentalId()).isNotNull();
         assertThat(actualRentalDto.getBook()).isEqualTo(book1);
         assertThat(actualRentalDto.getUser()).isEqualTo(user);
         assertThat(actualRentalDto.getStartDate()).isEqualTo(LocalDate.now());

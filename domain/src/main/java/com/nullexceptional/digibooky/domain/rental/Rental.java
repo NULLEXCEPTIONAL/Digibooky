@@ -8,23 +8,23 @@ import java.util.UUID;
 
 public class Rental {
 
-    public static final int DEFAULT_RENTAL_PERIOD = 3;
+    public static final int DEFAULT_RENTAL_PERIOD_IN_WEEKS = 3;
     private final UUID id;
     private final Book book;
     private final User user;
     private LocalDate startDate;
-    private LocalDate endDate;
+    private LocalDate actualReturnDate;
 
     public Rental(Book book, User user) {
         this.id = UUID.randomUUID();
         this.book = book;
         this.user = user;
         this.startDate = LocalDate.now();
-        this.endDate = null;
+        this.actualReturnDate = null;
     }
 
     public LocalDate getReturnDate() {
-        return startDate.plusWeeks(DEFAULT_RENTAL_PERIOD);
+        return startDate.plusWeeks(DEFAULT_RENTAL_PERIOD_IN_WEEKS);
     }
 
     public UUID getId() {
@@ -43,12 +43,12 @@ public class Rental {
         return startDate;
     }
 
-    public LocalDate getEndDate() {
-        return endDate;
+    public LocalDate getActualReturnDate() {
+        return actualReturnDate;
     }
 
-    public void setEndDate(LocalDate returnDate) {
-        this.endDate = returnDate;
+    public void setActualReturnDate(LocalDate actualReturnDate) {
+        this.actualReturnDate = actualReturnDate;
     }
 
     //created to test getAllBooksOverdue in RentalRepository

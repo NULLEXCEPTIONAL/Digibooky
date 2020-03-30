@@ -15,15 +15,24 @@ public class UserDto {
     private boolean logged;
     private Role role;
 
-    public UserDto(String inss, String firstName, String lastName, String email, Address address) {
-        this.id = UUID.randomUUID();
+
+    public UserDto(UUID id,String inss, String firstName, String lastName, String email, Address address,Role role){
+        this.id = id;
         this.inss = inss;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.address = address;
         this.logged = false;
-        this.role = Role.Member;
+        this.role = role;
+    }
+
+    public UserDto(String inss, String firstName, String lastName, String email, Address address) {
+        this(UUID.randomUUID(),inss,firstName,lastName,email,address,Role.Member);
+
+    }
+    public UserDto(UUID id,String inss, String firstName, String lastName, String email, Address address) {
+        this(id,inss,firstName,lastName,email,address,Role.Member);
     }
 
 

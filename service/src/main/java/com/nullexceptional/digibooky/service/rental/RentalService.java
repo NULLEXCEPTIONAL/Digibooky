@@ -1,9 +1,8 @@
 package com.nullexceptional.digibooky.service.rental;
 
 import com.nullexceptional.digibooky.domain.book.Book;
-import com.nullexceptional.digibooky.domain.book.dto.BookDtoGeneral;
 import com.nullexceptional.digibooky.domain.book.BookRepository;
-import com.nullexceptional.digibooky.domain.members.User;
+import com.nullexceptional.digibooky.domain.book.dto.BookDtoGeneral;
 import com.nullexceptional.digibooky.domain.members.UserRepository;
 import com.nullexceptional.digibooky.domain.rental.Rental;
 import com.nullexceptional.digibooky.domain.rental.RentalRepository;
@@ -41,8 +40,7 @@ public class RentalService {
         validateBookIsNotBorrowed(book);
         validateBookIsNotDeleted(book);
         book.setBorrowed(true);
-        User member = userRepository.getUserById(createRentalDto.getMemberId());
-        return rentalMapper.toDto(rentalRepository.saveRental(new Rental(book, member)));
+        return rentalMapper.toDto(rentalRepository.saveRental(new Rental(book, userRepository.getUserById(createRentalDto.getMemberId()))));
     }
 
     private void validateBookIsNotDeleted(Book book) {

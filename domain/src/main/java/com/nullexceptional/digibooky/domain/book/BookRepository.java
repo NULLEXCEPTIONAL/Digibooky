@@ -4,6 +4,8 @@ import com.nullexceptional.digibooky.domain.book.exceptions.BookAlreadyExistsExc
 import com.nullexceptional.digibooky.domain.book.exceptions.InvalidIsbnException;
 import com.nullexceptional.digibooky.domain.book.exceptions.NoBookToUpdateException;
 import com.nullexceptional.digibooky.domain.book.exceptions.NotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.stream.Collectors;
 @Repository
 public class BookRepository {
     private Map<UUID, Book> bookCatalog;
+    private final Logger logger = LoggerFactory.getLogger(BookRepository.class);
 
     public BookRepository() {
         this.bookCatalog = new ConcurrentHashMap<>();
@@ -35,6 +38,7 @@ public class BookRepository {
             //TODO Comment out the ISBN validation
             //IsbnValidator.validateIsbn13(book.getIsbn());
             bookCatalog.put(book.getId(), book);
+            logger.info("A new book has been registered. Title: " + book.getTitle() + ", ISBN: " + book.getIsbn());
         } else
             throw new BookAlreadyExistsException("Book " + book.getTitle() + " with ISBN " + book.getIsbn() + " is already registered.");
 
@@ -59,6 +63,7 @@ public class BookRepository {
                 .filter(book -> book.getIsbn().matches(newISBN))
                 .collect(Collectors.toList());
         ifEmptyThrowException(result, isbn);
+        logger.info("Search Book by ISBN: Input ->  " + isbn+ " Results -> " + result.size());
         return result;
     }
 
@@ -69,6 +74,7 @@ public class BookRepository {
                 .filter(book -> book.getTitle().matches("(?i:.*" + newText + ".*)"))
                 .collect(Collectors.toList());
         ifEmptyThrowException(result, titleSearchString);
+        logger.info("Search Book by Title: Input ->  " + titleSearchString+ " Results -> " + result.size());
         return result;
     }
 
@@ -79,6 +85,7 @@ public class BookRepository {
                 .filter(book -> book.getAuthorFirstAndLastName().matches("(?i:.*" + newName + ".*)"))
                 .collect(Collectors.toList());
         ifEmptyThrowException(result, authorFullName);
+        logger.info("Search Book by Author: Input ->  " + authorFullName+ " Results -> " + result.size());
         return result;
     }
 
@@ -101,6 +108,7 @@ public class BookRepository {
         //TODO Comment out the ISBN-validation.
         //IsbnValidator.validateIsbn13(updatedBook.getIsbn());
         bookCatalog.put(bookToUpdate.getId(), updatedBook);
+        logger.info("A book has been updated. Title: " + updatedBook.getTitle() + ", ISBN: " + updatedBook.getIsbn());
     }
 
     public void deleteBook(String isbn) throws NoBookToUpdateException {
@@ -111,6 +119,7 @@ public class BookRepository {
                 .orElseThrow(() -> new NoBookToUpdateException("There is no book with ISBN " + isbn + " to delete"));
 
         bookToDelete.delete();
+        logger.info("A book has been deleted. Title: " + bookToDelete.getTitle() + ", ISBN: " + bookToDelete.getIsbn());
     }
 
 }

@@ -49,7 +49,7 @@ class RentalRepositoryTest {
         // When
         rentalRepository.updateEndDateRental(rental.getId());
         // Then
-        assertThat(rental.getEndDate().isEqual(LocalDate.now()));
+        assertThat(rental.getActualReturnDate().isEqual(LocalDate.now()));
     }
 
     @Test
@@ -87,7 +87,7 @@ class RentalRepositoryTest {
         Rental rental2 = new Rental(bookNotOverdue, user);
         Rental rental3 = new Rental(bookOverdueButAlreadyReturned, user);
         rental3.setStartDate(LocalDate.now().minusMonths(1));
-        rental3.setEndDate(LocalDate.now());
+        rental3.setActualReturnDate(LocalDate.now());
         rentalRepository.saveRental(rental1);
         rentalRepository.saveRental(rental2);
         rentalRepository.saveRental(rental3);
@@ -118,5 +118,24 @@ class RentalRepositoryTest {
         assertThatThrownBy(() -> rentalRepository.getRental(UUID.randomUUID()))
                 .isInstanceOf(RentalIdNotFoundException.class)
                 .hasMessageStartingWith("Log ID:");
+    }
+
+    @Test
+    void getEnhancedBookDetails_whenBookIsRentedByUser_thenReturnUserWhoIsCurrentlyBorrowingTheBook() {
+        // Given
+        rentalRepository.saveRental(new Rental(book1, user));
+        // When
+        User actualUser = rentalRepository.getEnhancedBookDetails(book1.getId());
+        // Then
+        assertThat(actualUser).isEqualTo(user);
+    }
+
+    @Test
+    void getEnhancedBookDetails_whenBookIsNotRentedBySomeone_thenReturnNull() {
+        // Given
+        // When
+        User actualUser = rentalRepository.getEnhancedBookDetails(book1.getId());
+        // Then
+        assertThat(actualUser).isNull();
     }
 }

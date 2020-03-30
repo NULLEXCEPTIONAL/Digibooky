@@ -37,7 +37,6 @@ public class UserRepository {
                 .filter(user1 -> user1.getInss().equals(inss))
                 .findFirst()
                 .orElse(null);
-
     }
 
 

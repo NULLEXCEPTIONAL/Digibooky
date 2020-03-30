@@ -33,8 +33,7 @@ public class UserResource {
         isInssNotUnique(createUserDto);
         UserDto userDto = new UserDto(createUserDto.getInss(), createUserDto.getFirstName(), createUserDto.getLastName(), createUserDto.getEmail(), createUserDto.getAddress());
         userService.addUser(userDto);
-        return userService.getUserById(userDto.getId());
-
+        return userDto;
     }
 
     private void isInssNotUnique(CreateUserDto createUserDto) {
