@@ -68,7 +68,7 @@ class BookRepositoryTest {
 
         @Test
         void isbn_WithNoMatch() {
-            Assertions.assertThatExceptionOfType(NotFoundException.class).isThrownBy(() -> bookRepository.searchBookByISBN("12322222222?*"));
+            Assertions.assertThat(bookRepository.searchBookByISBN("1222222222222222")).isEmpty();
         }
 
         @Test
@@ -80,7 +80,7 @@ class BookRepositoryTest {
 
         @Test
         void authorName_WithNoMatch() {
-            Assertions.assertThatExceptionOfType(NotFoundException.class).isThrownBy(() -> bookRepository.searchBookByAuthor("Tim?*"));
+            Assertions.assertThat(bookRepository.searchBookByAuthor("Tim.*")).isEmpty();
         }
 
         @Test
@@ -92,7 +92,7 @@ class BookRepositoryTest {
 
         @Test
         void title_WithNoMatch() {
-            Assertions.assertThatExceptionOfType(NotFoundException.class).isThrownBy(() -> bookRepository.searchBookByTitle("Tim?*"));
+            Assertions.assertThat(bookRepository.searchBookByTitle("Tim?*")).isEmpty();
         }
     }
 
