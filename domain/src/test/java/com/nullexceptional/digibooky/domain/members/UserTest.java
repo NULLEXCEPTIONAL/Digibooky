@@ -35,4 +35,5 @@ class UserTest {
         assertEquals("Yesman", userFromDb.getFirstName());
     }
 
+
 }
