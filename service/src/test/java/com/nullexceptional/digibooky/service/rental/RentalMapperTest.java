@@ -32,6 +32,6 @@ class RentalMapperTest {
         assertThat(rentalDto.getBook()).isEqualTo(expectedBook);
         assertThat(rentalDto.getUser()).isEqualTo(expectedUser);
         assertThat(rentalDto.getStartDate()).isEqualTo(LocalDate.now());
-        assertThat(rentalDto.getEndDate()).isNull();
+        assertThat(rentalDto.getActualReturnDate()).isNull();
     }
 }

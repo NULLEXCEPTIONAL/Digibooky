@@ -13,7 +13,7 @@ public class RentalMapper {
                 rental.getBook(),
                 rental.getUser(),
                 rental.getStartDate(),
-                rental.getEndDate()
+                rental.getActualReturnDate()
         );
     }
 }

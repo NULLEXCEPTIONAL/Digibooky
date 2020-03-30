@@ -1,6 +1,7 @@
 package com.nullexceptional.digibooky.domain.rental;
 
 import com.nullexceptional.digibooky.domain.book.Book;
+import com.nullexceptional.digibooky.domain.members.User;
 import com.nullexceptional.digibooky.domain.rental.exceptions.RentalIdNotFoundException;
 import org.springframework.stereotype.Repository;
 
@@ -31,7 +32,7 @@ public class RentalRepository {
 
     public Rental updateEndDateRental(UUID rentalId) {
         validateRentalIdExists(rentalId);
-        rentalsRepo.get(rentalId).setEndDate(LocalDate.now());
+        rentalsRepo.get(rentalId).setActualReturnDate(LocalDate.now());
         return rentalsRepo.get(rentalId);
     }
 
@@ -45,7 +46,7 @@ public class RentalRepository {
     public List<Book> getAllBooksOverdue() {
         return rentalsRepo.values().stream()
                 .filter(rental -> rental.getReturnDate().isBefore(LocalDate.now()))
-                .filter(rental -> rental.getEndDate() == null)
+                .filter(rental -> rental.getActualReturnDate() == null)
                 .map(Rental::getBook)
                 .collect(Collectors.toList());
     }
@@ -55,9 +56,21 @@ public class RentalRepository {
         return rentalsRepo.get(rentalId);
     }
 
+
+
     private void validateRentalIdExists(UUID rentalId) {
         if (rentalsRepo.get(rentalId) == null) {
             throw new RentalIdNotFoundException("Log ID: " + UUID.randomUUID() + " - Rental id not found");
         }
+    }
+
+    public User getEnhancedBookDetails(UUID bookId) {
+        return rentalsRepo.values().stream()
+                .filter(rental -> rental.getActualReturnDate() == null)
+                .filter(rental -> rental.getBook().getId().equals(bookId))
+                .map(Rental::getUser)
+                .findFirst()
+                .orElse(null)
+                ;
     }
 }
