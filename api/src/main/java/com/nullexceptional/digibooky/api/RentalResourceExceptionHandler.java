@@ -17,10 +17,6 @@ public class RentalResourceExceptionHandler {
 
     private final Logger LOGGER = LoggerFactory.getLogger(RentalService.class);
 
-//    example of an IllegalStateException handler
-//    you can change the exception type to your liking
-//    if you throw an exception in your domain or service layer don't forget to add a handler here so our code doesn't crash
-
     @ExceptionHandler(IllegalStateException.class)
     protected void illegalStateException(IllegalStateException exception, HttpServletResponse response) throws IOException {
         LOGGER.info(exception.getMessage(), exception);

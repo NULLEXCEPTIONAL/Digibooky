@@ -8,7 +8,6 @@ import com.nullexceptional.digibooky.domain.book.exceptions.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -40,7 +39,7 @@ public class BookRepository {
             bookCatalog.put(book.getId(), book);
             logger.info("A new book has been registered. Title: " + book.getTitle() + ", ISBN: " + book.getIsbn());
         } else
-            throw new BookAlreadyExistsException("Book " + book.getTitle() + " with ISBN " + book.getIsbn() + " is already registered.");
+            throw new BookAlreadyExistsException(book.getTitle(), book.getIsbn());
 
     }
 
@@ -62,7 +61,6 @@ public class BookRepository {
                 .filter(book -> !book.isDeleted())
                 .filter(book -> book.getIsbn().matches(newISBN))
                 .collect(Collectors.toList());
-        ifEmptyThrowException(result, isbn);
         logger.info("Search Book by ISBN: Input ->  " + isbn+ " Results -> " + result.size());
         return result;
     }
@@ -73,7 +71,6 @@ public class BookRepository {
                 .filter((book) -> !book.isDeleted())
                 .filter(book -> book.getTitle().matches("(?i:.*" + newText + ".*)"))
                 .collect(Collectors.toList());
-        ifEmptyThrowException(result, titleSearchString);
         logger.info("Search Book by Title: Input ->  " + titleSearchString+ " Results -> " + result.size());
         return result;
     }
@@ -84,13 +81,8 @@ public class BookRepository {
                 .filter(book -> !book.isDeleted())
                 .filter(book -> book.getAuthorFirstAndLastName().matches("(?i:.*" + newName + ".*)"))
                 .collect(Collectors.toList());
-        ifEmptyThrowException(result, authorFullName);
         logger.info("Search Book by Author: Input ->  " + authorFullName+ " Results -> " + result.size());
         return result;
-    }
-
-    private void ifEmptyThrowException(List<Book> result, String searchString) {
-        if (result.size() == 0) throw new NotFoundException(searchString);
     }
 
     String convertWildCardSymbols(String text) {
@@ -115,8 +107,7 @@ public class BookRepository {
                 .filter(book -> book.getIsbn().equals(isbn))
                 .filter(book -> !book.isDeleted())
                 .findFirst()
-                .orElseThrow(() -> new NoBookToUpdateException("There is no book with ISBN " + isbn + " to delete"));
-
+                .orElseThrow(() -> new NoBookToUpdateException(isbn));
         bookToDelete.delete();
         logger.info("A book has been deleted. Title: " + bookToDelete.getTitle() + ", ISBN: " + bookToDelete.getIsbn());
     }
