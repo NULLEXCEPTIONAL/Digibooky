@@ -25,6 +25,16 @@ public class UserDto {
         this.logged = false;
         this.role = Role.Member;
     }
+    public UserDto(UUID id,String inss, String firstName, String lastName, String email, Address address) {
+        this.id = id;
+        this.inss = inss;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.address = address;
+        this.logged = false;
+        this.role = Role.Member;
+    }
 
 
     public void setRole(Role role) {
