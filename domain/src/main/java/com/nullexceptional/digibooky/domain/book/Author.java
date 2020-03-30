@@ -7,9 +7,9 @@ import java.util.UUID;
 
 @JsonAutoDetect
 public class Author {
-    private UUID id;
-    private String lastName;
-    private String firstName;
+    private final UUID id;
+    private final String lastName;
+    private final String firstName;
 
     public Author(String lastName, String firstName) {
         this.id = UUID.randomUUID();
