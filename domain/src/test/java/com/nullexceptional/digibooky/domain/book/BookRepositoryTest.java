@@ -5,6 +5,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
 import java.util.UUID;
 
 class BookRepositoryTest {
@@ -30,10 +31,10 @@ class BookRepositoryTest {
     }
 
     @Nested
-    class GetAllBooks{
+    class GetAllBooks {
         @Test
         void withNonEmptyRepository() {
-            Assertions.assertThat(bookRepository.getAllBooks()).containsExactlyInAnyOrder(book1,book2,book3);
+            Assertions.assertThat(bookRepository.getAllBooks()).containsExactlyInAnyOrder(book1, book2, book3);
         }
 
         @Test
@@ -43,7 +44,7 @@ class BookRepositoryTest {
     }
 
     @Nested
-    class GetBookBy{
+    class GetBookBy {
         @Test
         void correctIsbn() {
             Assertions.assertThat(bookRepository.getBookByISBN("9785568123279")).isEqualTo(book1);
@@ -57,46 +58,46 @@ class BookRepositoryTest {
     }
 
     @Nested
-    class SearchBookBy{
+    class SearchBookBy {
         @Test
-        void isbn_WithWildcard(){
+        void isbn_WithWildcard() {
             Assertions.assertThat(bookRepository.searchBookByISBN("?7811475111*")).containsExactlyInAnyOrder(book2);
             Assertions.assertThat(bookRepository.searchBookByISBN("9781147511154")).containsExactlyInAnyOrder(book2);
-            Assertions.assertThat(bookRepository.searchBookByISBN("97*")).containsExactlyInAnyOrder(book1,book2,book3);
+            Assertions.assertThat(bookRepository.searchBookByISBN("97*")).containsExactlyInAnyOrder(book1, book2, book3);
         }
 
         @Test
-        void isbn_WithNoMatch(){
-            Assertions.assertThatExceptionOfType(NotFoundException.class).isThrownBy(()->bookRepository.searchBookByISBN("12322222222?*"));
+        void isbn_WithNoMatch() {
+            Assertions.assertThatExceptionOfType(NotFoundException.class).isThrownBy(() -> bookRepository.searchBookByISBN("12322222222?*"));
         }
 
         @Test
-        void authorName_WithWildcard(){
+        void authorName_WithWildcard() {
             Assertions.assertThat(bookRepository.searchBookByAuthor("tolk?*")).containsExactlyInAnyOrder(book3);
             Assertions.assertThat(bookRepository.searchBookByAuthor("Dan")).containsExactlyInAnyOrder(book2);
-            Assertions.assertThat(bookRepository.searchBookByAuthor("J?*")).containsExactlyInAnyOrder(book1,book3);
+            Assertions.assertThat(bookRepository.searchBookByAuthor("J?*")).containsExactlyInAnyOrder(book1, book3);
         }
 
         @Test
-        void authorName_WithNoMatch(){
-            Assertions.assertThatExceptionOfType(NotFoundException.class).isThrownBy(()->bookRepository.searchBookByAuthor("Tim?*"));
+        void authorName_WithNoMatch() {
+            Assertions.assertThatExceptionOfType(NotFoundException.class).isThrownBy(() -> bookRepository.searchBookByAuthor("Tim?*"));
         }
 
         @Test
-        void title_WithWilcard(){
+        void title_WithWilcard() {
             Assertions.assertThat(bookRepository.searchBookByTitle("L?rd")).containsExactlyInAnyOrder(book3);
             Assertions.assertThat(bookRepository.searchBookByTitle("stone")).containsExactlyInAnyOrder(book1);
             Assertions.assertThat(bookRepository.searchBookByTitle("d?vinc?")).containsExactlyInAnyOrder(book2);
         }
 
         @Test
-        void title_WithNoMatch(){
-            Assertions.assertThatExceptionOfType(NotFoundException.class).isThrownBy(()->bookRepository.searchBookByTitle("Tim?*"));
+        void title_WithNoMatch() {
+            Assertions.assertThatExceptionOfType(NotFoundException.class).isThrownBy(() -> bookRepository.searchBookByTitle("Tim?*"));
         }
     }
 
     @Nested
-    class UpdateBook{
+    class UpdateBook {
         @Test
         void whenBookIsUpdated_ShouldReturnUpdatedBook() {
             Book updateBook = new Book("9785568123279", "The Deathly Hallows", new Author("Rowling", "JK"), "Blabla updated summary");
@@ -107,7 +108,7 @@ class BookRepositoryTest {
         }
 
         @Test
-        void whenBookIsDeleted_ShouldReturnErrorWhenAskedFor(){
+        void whenBookIsDeleted_ShouldReturnErrorWhenAskedFor() {
             bookRepository.deleteBook("9785568123279");
 
             Assertions.assertThatExceptionOfType(NotFoundException.class).isThrownBy(() -> bookRepository.getBookByISBN("9785568123279"));

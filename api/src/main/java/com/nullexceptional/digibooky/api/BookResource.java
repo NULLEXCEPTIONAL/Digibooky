@@ -19,46 +19,44 @@ public class BookResource {
     }
 
     @GetMapping
-    public List<BookDtoGeneral> getAllBooks(){
+    public List<BookDtoGeneral> getAllBooks() {
         return bookService.getAllBooks();
     }
 
     @GetMapping(produces = "application/json", path = "isbn/{isbn}")
-    public BookDtoDetails getBookByISBN(@PathVariable ("isbn") String isbn){
+    public BookDtoDetails getBookByISBN(@PathVariable("isbn") String isbn) {
         return bookService.getBookByISBN(isbn);
     }
 
     @GetMapping(produces = "application/json", path = "isbn/search/{isbn}")
-    public List<BookDtoDetails> searchBookByISBN(@PathVariable String isbn){
+    public List<BookDtoDetails> searchBookByISBN(@PathVariable("isbn") String isbn) {
         return bookService.searchBookByISBN(isbn);
     }
 
     @GetMapping(produces = "application/json", path = "title/search/{title}")
-    public List<BookDtoDetails> searchBookByTitle(@PathVariable ("title") String titleSearchString){
+    public List<BookDtoDetails> searchBookByTitle(@PathVariable("title") String titleSearchString) {
         return bookService.searchBookByTitle(titleSearchString);
     }
 
     @GetMapping(produces = "application/json", path = "author/search/{authorFullName}")
-    public List<BookDtoDetails> searchBookByAuthor(@PathVariable ("authorFullName") String authorFullName){
+    public List<BookDtoDetails> searchBookByAuthor(@PathVariable("authorFullName") String authorFullName) {
         return bookService.searchBookByAuthorName(authorFullName);
     }
 
-    @PostMapping(consumes="application/json")
-    public void registerNewBook(@RequestBody BookDtoDetails bookToRegister){
+    @PostMapping(consumes = "application/json")
+    public void registerNewBook(@RequestBody BookDtoDetails bookToRegister) {
         bookService.registerNewBook(bookToRegister);
     }
 
-    @PutMapping(consumes="application/json",  path = "{isbn}")
-    public void updateBook(@RequestBody BookDtoDetails bookToUpdate, @PathVariable("isbn") String isbn){
+    @PutMapping(consumes = "application/json", path = "{isbn}")
+    public void updateBook(@RequestBody BookDtoDetails bookToUpdate, @PathVariable("isbn") String isbn) {
         bookService.updateBook(bookToUpdate, isbn);
     }
 
     @DeleteMapping(path = "{isbn}")
-    public void deleteBook(@PathVariable("isbn") String isbn){
+    public void deleteBook(@PathVariable("isbn") String isbn) {
         bookService.deleteBook(isbn);
     }
-
-
 
 
 }
