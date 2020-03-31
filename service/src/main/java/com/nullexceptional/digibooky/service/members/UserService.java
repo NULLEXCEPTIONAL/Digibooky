@@ -30,4 +30,13 @@ public class UserService {
     public UserDto getUserById(UUID id) {
         return userMapper.fromUserToUserDto(userRepository.getUserById(id));
     }
+    public void checkInssDuplication(String inss){
+        userRepository.isInssNotUnique(inss);
+    }
+    public void checkIfEmailIsValid(String email){
+        userRepository.isValidEmailAddress(email);
+    }
+    public void checkIfEmailIsUnique(String email){
+        userRepository.isEmailUnique(email);
+    }
 }

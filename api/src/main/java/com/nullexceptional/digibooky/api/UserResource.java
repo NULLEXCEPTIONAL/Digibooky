@@ -29,9 +29,9 @@ public class UserResource {
     @PostMapping(consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public UserDto createUser(@Valid @RequestBody CreateUserDto createUserDto) {
-        isValidEmailAddress(createUserDto.getEmail());
-        isEmailUnique(createUserDto);
-        isInssNotUnique(createUserDto);
+        userService.checkInssDuplication(createUserDto.getInss());
+        userService.checkIfEmailIsUnique(createUserDto.getEmail());
+        userService.checkIfEmailIsValid(createUserDto.getEmail());
         UserDto userDto = new UserDto(createUserDto.getInss(), createUserDto.getFirstName(), createUserDto.getLastName(), createUserDto.getEmail(), createUserDto.getAddress());
         userService.addUser(userDto);
         return userDto;
