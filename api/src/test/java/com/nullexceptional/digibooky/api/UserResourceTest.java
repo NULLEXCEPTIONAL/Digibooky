@@ -19,15 +19,38 @@ class UserResourceTest {
 
 
     @Test
-    void whenCreateUser_IfRightCredentials_ReturnUser() {
-        //String url="/users";
+    void whenCreateUser_IfRightCredentials_ReturnCreated() {
+        String url = "/users";
+        //given
+        String jsonBody = "{\n" +
+                "\t\"lastName\" : \"Mimi\",\n" +
+                "\t\"firstName\" : \"kokkkkkkkkko\",\n" +
+                "\t\"inss\" : \"123457\",\n" +
+                "\t\"email\" : \"uni@gmail.com\",\n" +
+                "\t\"address\" : {\n" +
+                "\t\t\"streetName\" : \"lolstreet\",\n" +
+                "\t\t\"streetNumber\" : 15,\n" +
+                "\t\t\"postalCode\" : \"1030\",\n" +
+                "\t\t\"city\" : \"Schaerbeek\"\n" +
+                "\t}\n" +
+                "}";
+
+        webTestClient
+                .post()
+                .uri(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Basic " + base64Encode("admin:admin@gmail.com"))
+                .bodyValue(jsonBody)
+                .exchange()
+                .expectStatus().isCreated();
 
     }
 
     @Test
-    void whenCreateLibrarian_IfWrongCredential_ReturnError() {
+    void whenCreateLibrarian_IfRightCredential_ReturnCreated() {
         //given
-        String jsonBody="{\n" +
+        String jsonBody = "{\n" +
                 "\t\"lastName\" : \"Mimi\",\n" +
                 "\t\"firstName\" : \"kokkkkkkkkko\",\n" +
                 "\t\"inss\" : \"123456\",\n" +
@@ -39,8 +62,9 @@ class UserResourceTest {
                 "\t\t\"city\" : \"Schaerbeek\"\n" +
                 "\t}\n" +
                 "}";
-        String url ="/users/librarian";
-        //when
+        String url = "/users/librarian";
+
+        //when && then
         webTestClient
                 .post()
                 .uri(url)
@@ -56,7 +80,6 @@ class UserResourceTest {
     @Test
     void WhenGivenRightCredentials_getUserById() {
 
-        //String url="/users/{0}";
 
     }
 
