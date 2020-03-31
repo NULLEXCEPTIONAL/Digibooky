@@ -3,6 +3,7 @@ package com.nullexceptional.digibooky.service.rental;
 import com.nullexceptional.digibooky.domain.book.Book;
 import com.nullexceptional.digibooky.domain.book.BookRepository;
 import com.nullexceptional.digibooky.domain.book.dto.BookDtoGeneral;
+import com.nullexceptional.digibooky.domain.book.exceptions.NonExistingUserException;
 import com.nullexceptional.digibooky.domain.members.UserRepository;
 import com.nullexceptional.digibooky.domain.rental.Rental;
 import com.nullexceptional.digibooky.domain.rental.RentalRepository;
@@ -35,12 +36,17 @@ public class RentalService {
         this.bookMapper = bookMapper;
     }
 
-    public RentalDto lendBook(CreateRentalDto createRentalDto) {
+    public RentalDto lendBook(CreateRentalDto createRentalDto) throws NonExistingUserException, IllegalStateException {
         Book book = bookRepository.getBookByISBN(createRentalDto.getBookISBN());
+        validateUserId(createRentalDto.getMemberId());
         validateBookIsNotBorrowed(book);
         validateBookIsNotDeleted(book);
         book.setBorrowed(true);
         return rentalMapper.toDto(rentalRepository.saveRental(new Rental(book, userRepository.getUserById(createRentalDto.getMemberId()))));
+    }
+
+    private void validateUserId(UUID memberId) {
+        if (userRepository.getUserById(memberId) == null) throw new NonExistingUserException("There is no user with id " + memberId);
     }
 
     private void validateBookIsNotDeleted(Book book) {
@@ -70,7 +76,7 @@ public class RentalService {
 
     private String getReturnBookMessage(Rental rental) {
         if(isBookReturnedPassedDueDate(rental)){
-            return "Book is returned to late, due date was on " + rental.getReturnDate();
+            return "Book is returned too late, due date was on " + rental.getReturnDate();
         }
         return "Book is returned on time";
     }

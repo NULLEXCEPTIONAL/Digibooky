@@ -129,6 +129,6 @@ class RentalServiceIntegrationTest {
         // When
         String response = rentalService.returnBook(rentalId);
         // Then
-        assertThat(response).isEqualTo("Book is returned to late, due date was on " + returnDate);
+        assertThat(response).isEqualTo("Book is returned too late, due date was on " + returnDate);
     }
 }

@@ -1,5 +1,6 @@
 package com.nullexceptional.digibooky.api;
 
+import com.nullexceptional.digibooky.domain.book.exceptions.NonExistingUserException;
 import com.nullexceptional.digibooky.domain.rental.exceptions.RentalIdNotFoundException;
 import com.nullexceptional.digibooky.service.rental.RentalService;
 import org.slf4j.Logger;
@@ -26,4 +27,11 @@ public class RentalResourceExceptionHandler {
         LOGGER.info(exception.getMessage(), exception);
         response.sendError(BAD_REQUEST.value(), exception.getMessage());
     }
+
+    @ExceptionHandler(NonExistingUserException.class)
+    protected void rentalIdNotFoundException(NonExistingUserException exception, HttpServletResponse response) throws IOException {
+        LOGGER.info(exception.getMessage(), exception);
+        response.sendError(BAD_REQUEST.value(), exception.getMessage());
+    }
+
 }

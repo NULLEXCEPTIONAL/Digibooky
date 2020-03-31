@@ -34,7 +34,7 @@ public class RentalResource {
 
     @PreAuthorize("hasAuthority('Member')")
     @PatchMapping(path = "/{rentalId}", produces = APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public String returnBook(@PathVariable UUID rentalId) {
         return rentalService.returnBook(rentalId);
     }

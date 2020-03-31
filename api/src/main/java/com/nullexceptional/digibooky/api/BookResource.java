@@ -5,6 +5,7 @@ import com.nullexceptional.digibooky.domain.book.dto.BookDtoGeneral;
 import com.nullexceptional.digibooky.domain.book.dto.BookDtoUpdate;
 import com.nullexceptional.digibooky.service.book.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,18 +48,21 @@ public class BookResource {
 
     @PreAuthorize("hasAuthority('Librarian')")
     @PostMapping(consumes = "application/json")
+    @ResponseStatus(HttpStatus.CREATED)
     public BookDtoDetails registerNewBook(@RequestBody BookDtoDetails bookToRegister) {
         return bookService.registerNewBook(bookToRegister);
     }
 
     @PreAuthorize("hasAuthority('Librarian')")
     @PutMapping(consumes = "application/json", path = "{isbn}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public BookDtoDetails updateBook(@RequestBody BookDtoUpdate bookToUpdate, @PathVariable("isbn") String isbn) {
         return bookService.updateBook(bookToUpdate, isbn);
     }
 
     @PreAuthorize("hasAuthority('Librarian')")
     @DeleteMapping(path = "{isbn}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public void deleteBook(@PathVariable("isbn") String isbn) {
         bookService.deleteBook(isbn);
     }

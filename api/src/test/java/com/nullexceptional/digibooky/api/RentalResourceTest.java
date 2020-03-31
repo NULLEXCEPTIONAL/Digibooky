@@ -108,7 +108,7 @@ class RentalResourceTest {
                 .contentType(APPLICATION_JSON)
                 .exchange()
                 .expectStatus()
-                .isOk()
+                .isAccepted()
                 .expectBody(String.class)
                 .value(string -> assertThat(string).isEqualTo("Book is returned on time"));
     }
@@ -127,9 +127,9 @@ class RentalResourceTest {
                 .contentType(APPLICATION_JSON)
                 .exchange()
                 .expectStatus()
-                .isOk()
+                .isAccepted()
                 .expectBody(String.class)
-                .value(string -> assertThat(string).isEqualTo("Book is returned to late, due date was on " + rental.getReturnDate()));
+                .value(string -> assertThat(string).isEqualTo("Book is returned too late, due date was on " + rental.getReturnDate()));
     }
 
     @Test
