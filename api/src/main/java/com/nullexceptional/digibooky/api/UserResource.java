@@ -26,6 +26,7 @@ public class UserResource {
         this.userService = userService;
     }
 
+    @PreAuthorize("hasAuthority('Admin')")
     @PostMapping(consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public UserDto createUser(@Valid @RequestBody CreateUserDto createUserDto) {
