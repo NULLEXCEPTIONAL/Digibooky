@@ -1,9 +1,11 @@
 package com.nullexceptional.digibooky.api;
 
+import com.nullexceptional.digibooky.domain.members.dto.UserDto;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 import java.nio.charset.Charset;
@@ -24,13 +26,38 @@ class UserResourceTest {
 
     @Test
     void whenCreateLibrarian_IfWrongCredential_ReturnError() {
-        //String url ="/users/librarian";
+        //given
+        String jsonBody="{\n" +
+                "\t\"lastName\" : \"Mimi\",\n" +
+                "\t\"firstName\" : \"kokkkkkkkkko\",\n" +
+                "\t\"inss\" : \"123456\",\n" +
+                "\t\"email\" : \"uniqueb@gmail.com\",\n" +
+                "\t\"address\" : {\n" +
+                "\t\t\"streetName\" : \"lolstreet\",\n" +
+                "\t\t\"streetNumber\" : 15,\n" +
+                "\t\t\"postalCode\" : \"1030\",\n" +
+                "\t\t\"city\" : \"Schaerbeek\"\n" +
+                "\t}\n" +
+                "}";
+        String url ="/users/librarian";
+        //when
+        webTestClient
+                .post()
+                .uri(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Basic " + base64Encode("admin:admin@gmail.com"))
+                .bodyValue(jsonBody)
+                .exchange()
+                .expectStatus().isCreated();
 
     }
 
     @Test
-    void getUserById() {
-       // String url="/users/{0}";
+    void WhenGivenRightCredentials_getUserById() {
+
+        //String url="/users/{0}";
+
     }
 
     @Test
